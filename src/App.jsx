@@ -1,4 +1,6 @@
 import config from '../config'
+import Login from './components/login'
+import Logout from './components/logout'
 import { createClient } from '../lib/moonbase'
 
 export default function App() {
@@ -6,5 +8,10 @@ export default function App() {
 
   // client.getCollections(...), etc.
 
-  return <h1 class="text-3xl font-bold underline">Artemis</h1>
+  return <div class="container mx-auto">
+    <main role="main" >
+      <Login />
+      <Logout />
+    </main>
+  </div>
 }
