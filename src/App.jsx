@@ -1,4 +1,3 @@
-import config from '../config'
 import Login from './components/login'
 import Logout from './components/logout'
 import { createClient } from '../lib/moonbase'
