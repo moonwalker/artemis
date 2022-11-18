@@ -1,7 +1,13 @@
-/* @refresh reload */
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import routes from './routes'
 import './index.css'
-import { render } from 'solid-js/web'
 
-import App from './App'
+const router = createBrowserRouter(routes())
 
-render(() => <App />, document.getElementById('root'))
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+        <RouterProvider router={router} />
+    </React.StrictMode>
+)

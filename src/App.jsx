@@ -1,5 +1,4 @@
-import Login from './components/login'
-import Logout from './components/logout'
+import Login from './pages/login'
 import { createClient } from '../lib/moonbase'
 
 export default function App() {
@@ -10,8 +9,8 @@ export default function App() {
   return (
     <div class="container mx-auto">
       <main role="main">
-        <Login />
-        <Logout />
+        
+        
       </main>
     </div>
   )
