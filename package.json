@@ -4,10 +4,10 @@
   "description": "Git-based headless CMS frontend",
   "license": "MIT",
   "scripts": {
-    "start": "vite",
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "clean": "rm -rf dist"
   },
   "dependencies": {
     "solid-js": "^1.5.1"
