@@ -23,23 +23,24 @@ interface AuthContextType {
 let AuthContext = React.createContext<AuthContextType>(null!);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  let [user, setUser] = React.useState<any>(null);
+  const stored = localStorage.getItem("artemis_user")
+  const [user, setUser] = React.useState<any>(stored)
 
-  let signin = (data: any, callback: VoidFunction) => {
+  const signin = (data: any, callback: VoidFunction) => {
     localStorage.setItem("artemis_token", data.gh_token)
     localStorage.setItem("artemis_user", atob(data.artms_user))
     setUser(data.artms_user)
     callback()
   };
 
-  let signout = (callback: VoidFunction) => {
+  const signout = (callback: VoidFunction) => {
     localStorage.removeItem("artemis_token")
     localStorage.removeItem("artemis_user")
     setUser(null)
     if (callback) callback()
   };
 
-  let value = { user, signin, signout };
+  const value = { user, signin, signout };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
