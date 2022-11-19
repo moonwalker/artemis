@@ -21,7 +21,7 @@ export function Logout() {
 }
 
 export function GithubAuthBox() {
-  const redirectUrl = import.meta.env.VITE_MOONBASE_API_URL + "/api/login/github"
+  const redirectUrl = import.meta.env.VITE_MOONBASE_API_URL + "/login/github"
   const navigate = useNavigate()
   const location = useLocation()
   const auth = useAuth()
