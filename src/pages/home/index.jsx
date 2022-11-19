@@ -1,5 +1,5 @@
 import React from "react";
-import networkImage from '../../assets/network-offline.png'
+import { Logout } from '../../components/auth'
 
 export default () => (<div class="flex items-center justify-center h-screen">
     <div class="rounded-lg border shadow-lg p-10">
@@ -8,5 +8,6 @@ export default () => (<div class="flex items-center justify-center h-screen">
                 Artemis CMS Home
             </div>
         </div>
+        <Logout />
     </div>
 </div>)
