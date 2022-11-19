@@ -19,7 +19,7 @@ export default () => {
 
     useEffect(() => {
         if (!!code && !auth.user && !error) {
-            client.get(`/api/login/github/authenticate/${code}`).then(user => {
+            client.get(`/login/github/authenticate/${code}`).then(user => {
                 auth.signin(user, () => {
                     navigate(from, { replace: true });
                 })
