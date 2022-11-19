@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Routes, Route } from "react-router-dom";
 
+import Authenticate from './pages/authenticate'
 import Home from './pages/home'
 import Login from './pages/login'
 import { AuthProvider, RequireAuth } from './lib/auth'
@@ -16,6 +17,7 @@ export default function App() {
       <main role="main">
         <AuthProvider>
           <Routes>
+            <Route path="/authenticate" element={<Authenticate />} />
             <Route path="/login" element={<Login />} />
             <Route element={<RequireAuth><Layout /></RequireAuth>}>
               <Route path="/" element={<Home />} />
