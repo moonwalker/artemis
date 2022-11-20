@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Authenticate from './pages/authenticate'
 import Home from './pages/home'
 import Login from './pages/login'
+import Signin from './pages/signin'
 import { AuthProvider, RequireAuth } from './lib/auth'
 import { ClientProvider } from './lib/moonbase'
 import Layout from './components/layout'
@@ -17,6 +18,7 @@ export default function App() {
             <Routes>
               <Route path="/authenticate" element={<Authenticate />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<Signin />} />
               <Route element={<RequireAuth><Layout /></RequireAuth>}>
                 <Route path="/" element={<Home />} />
               </Route>
