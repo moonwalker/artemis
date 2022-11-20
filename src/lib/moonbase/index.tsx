@@ -26,6 +26,7 @@ class Client implements ClientType {
     }
     constructor(apiUrl: string) {
         this.apiUrl = apiUrl
+        console.log(apiUrl)
     }
 }
 
