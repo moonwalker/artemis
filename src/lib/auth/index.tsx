@@ -5,47 +5,59 @@ import {
   Navigate,
   useSearchParams
 } from "react-router-dom"
-import { token } from '../token'
 
+const USER_NAME = 'artemis_user'
+
+interface User {
+  token: string
+  login: string
+  image: string
+}
 interface AuthContextType {
-  // user: {
-  //   login: string,
-  //   image: string
-  // }
-  // token: string,
-  user: any,
-  signin: (data: any, callback: VoidFunction) => void;
-  signout: (callback?: VoidFunction) => void;
+  user: User | null
+  signin: (data: any, callback: VoidFunction) => void
+  signout: (callback?: VoidFunction) => void
+  token: () => string | null
 }
 
 let AuthContext = React.createContext<AuthContextType>(null!);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   let usr
-  const stored = localStorage.getItem("artemis_user")
+  const stored = localStorage.getItem(USER_NAME)
   if (stored != null) {
     usr = JSON.parse(stored)
   }
-  const [user, setUser] = React.useState<any>(usr)
+  const [user, setUser] = React.useState<User | null>(usr)
 
   const signin = (data: any, callback: VoidFunction) => {
-    token.set(data.token)
-    delete data.token
-    localStorage.setItem("artemis_user", JSON.stringify(data))
+    localStorage.setItem(USER_NAME, JSON.stringify(data))
     setUser(data)
     callback()
-  };
+  }
 
   const signout = (callback?: VoidFunction) => {
-    token.remove()
-    localStorage.removeItem("artemis_user")
+    localStorage.removeItem(USER_NAME)
     setUser(null)
     if (callback) callback()
+  }
+
+  const token = (): string | null => {
+    return user?.token || null
   };
 
-  const value = { user, signin, signout };
+  const value = { user, signin, signout, token };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+}
+
+export function getToken(): string | null {
+  const stored = localStorage.getItem(USER_NAME)
+  if (stored) {
+    const user = JSON.parse(stored)
+    return user?.token || null
+  }
+  return null
 }
 
 export function useAuth() {

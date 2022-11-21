@@ -1,5 +1,5 @@
 import * as React from "react";
-import { token } from '../token'
+import { getToken } from '../auth'
 
 interface ClientType {
     apiUrl: string,
@@ -26,7 +26,6 @@ class Client implements ClientType {
     }
     constructor(apiUrl: string) {
         this.apiUrl = apiUrl
-        console.log(apiUrl)
     }
 }
 
@@ -36,7 +35,7 @@ const call = async (method: string, url: string, data?: any): Promise<any> => {
         'Content-Type': 'application/json'
     }
 
-    const authtoken = token.get()
+    const authtoken = getToken()
     if (!!authtoken) {
         Object.assign(headers, {
             'Authorization': `Bearer ${authtoken}`
