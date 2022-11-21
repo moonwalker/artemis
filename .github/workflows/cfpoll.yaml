@@ -30,7 +30,7 @@ jobs:
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "new version <${{ github.event.head_commit.url }}|${{ gitrev }}> deployed to <https://artemis.mw.zone|artemis>"
+                    "text": "new version <${{ github.event.head_commit.url }}|${{ env.gitrev }}> deployed to <https://artemis.mw.zone|artemis>"
                   }
                 }
               ]
