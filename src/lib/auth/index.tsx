@@ -29,9 +29,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = React.useState<any>(usr)
 
   const signin = (data: any, callback: VoidFunction) => {
-    token.set(data.gh_token)
-    localStorage.setItem("artemis_user", JSON.stringify(data.artms_user))
-    setUser(data.artms_user)
+    token.set(data.token)
+    delete data.token
+    localStorage.setItem("artemis_user", JSON.stringify(data))
+    setUser(data)
     callback()
   };
 
