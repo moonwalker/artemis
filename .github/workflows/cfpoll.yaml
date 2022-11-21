@@ -1,0 +1,37 @@
+name: Poll CF Pages Deploy
+
+on: push
+
+jobs:
+  notify:
+    name: Notify slack
+    runs-on: ubuntu-latest
+    env:
+      CF_ACCOUNT_EMAIL: ${{ secrets.CF_ACCOUNT_EMAIL }}
+      CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+    steps:
+      - uses: actions/checkout@v3
+      - run: echo "gitrev=`git rev-parse --short ${{ github.sha }}`" >> $GITHUB_ENV
+      - uses: WalshyDev/cf-pages-await@v1
+        with:
+          accountEmail: ${{ secrets.CF_ACCOUNT_EMAIL  }}
+          apiKey: ${{ secrets.CF_API_KEY }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          project: "artemis"
+      - uses: slackapi/slack-github-action@v1.23.0
+        with:
+          payload: |
+            {
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "new version <${{ github.event.head_commit.url }}|${{ gitrev }}> deployed to <https://artemis.mw.zone|artemis>"
+                  }
+                }
+              ]
+            }
