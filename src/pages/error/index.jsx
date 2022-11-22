@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 import Error403 from './403'
 import Error404 from './404'
 import Error500 from './500'
-import networkImage from '../../assets/network-offline.png'
+import networkImage from '../../assets/logo.png'
 
 export default () => {
     const { code } = useParams()
