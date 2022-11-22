@@ -1,5 +1,5 @@
 import Repos from '../../components/repos'
 
-export default () => (<div class="flex items-center justify-center">
+export default () => (<div className="flex items-center justify-center">
     <Repos />
 </div>)

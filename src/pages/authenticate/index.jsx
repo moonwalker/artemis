@@ -19,19 +19,19 @@ export default () => {
         if (!localStorage.getItem("artemis_auth")) {
             // React.StrictMode renders components twice (on dev but not production)
             localStorage.setItem("artemis_auth", code)
-            return
-        }
-        localStorage.removeItem("artemis_auth")
-        client.get(`/login/github/authenticate/${code}`).then(data => {
-            if (data.error) {
-                return setError(data.error)
-            }
-            auth.signin(data, () => {
-                navigate('/', { replace: true })
+            client.get(`/login/github/authenticate/${code}`).then(data => {
+                if (data.error) {
+                    return setError(data.error)
+                }
+                auth.signin(data, () => {
+                    navigate('/', { replace: true })
+                })
+            }).catch(err => {
+                setError(err.message)
+            }).finally(() => {
+                localStorage.removeItem("artemis_auth")
             })
-        }).catch(err => {
-            setError(err.message)
-        })
+        }
     }, [code])
 
     return <div className="flex items-center justify-center h-screen">

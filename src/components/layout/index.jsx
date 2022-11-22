@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 import Footer from './footer'
 
 export default () => (
-    <div class="container mx-auto">
+    <div className="container mx-auto">
         {/* <Header /> */}
         <main role="main" className="py-12">
             {/* <Sidebar /> */}
