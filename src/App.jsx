@@ -10,12 +10,11 @@ import { AuthProvider, RequireAuth } from './lib/auth'
 import { ClientProvider } from './lib/moonbase'
 import Layout from './components/layout'
 
-
 export default function App() {
   return (
     <div className="container mx-auto">
       <main role="main">
-        <ClientProvider apiUrl={import.meta.env.VITE_MOONBASE_API_URL}>
+        <ClientProvider apiUrl={env.MOONBASE_API_URL}>
           <AuthProvider>
             <Routes>
               <Route path="/error/:code" element={<Error />} />
