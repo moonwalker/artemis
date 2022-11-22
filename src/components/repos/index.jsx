@@ -22,7 +22,7 @@ export default () => {
         {!repos && !error && <Loader color="text-zinc-700" />}
         {!!error && <Error error={error} />}
         {!!repos && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-            {repos.items.map(repo => (<Link to={`/${repo.owner}/${repo.name}`} className="p-4 border border-stone-200 rounded-md shadow-md flex items-center justify-center hover:shadow-xl hover-border-stone-400 focus:outline-none focus:ring focus:ring-stone-600 active:bg-stone-200 active:shadow-inner transition-all">
+            {(repos.items || []).map(repo => (<Link to={`/${repo.owner}/${repo.name}/tree/${defaultBranch}`} className="p-4 border border-stone-200 rounded-md shadow-md flex items-center justify-center hover:shadow-xl hover-border-stone-400 focus:outline-none focus:ring focus:ring-stone-600 active:bg-stone-200 active:shadow-inner transition-all">
                 {`${repo.owner}/${repo.name}`}
             </Link>))}
         </div>}
