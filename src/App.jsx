@@ -11,7 +11,6 @@ import { ClientProvider } from './lib/moonbase'
 import Layout from './components/layout'
 
 export default function App() {
-  console.log(__APP_ENV__.MOONBASE_API_URL, __APP_ENV__.COMMIT_SHA)
   return (
     <div className="container mx-auto">
       <main role="main">
