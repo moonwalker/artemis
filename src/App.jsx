@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Navigate, Routes, Route } from "react-router-dom";
 
 import Authenticate from './pages/authenticate'
 import Home from './pages/home'
@@ -22,8 +22,9 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route element={<RequireAuth><Layout /></RequireAuth>}>
                 <Route path="/" element={<Home />} />
-                <Route path="/*" element={<Editor />} />
+                <Route path="/:owner/:repo/:element/:branch/*" element={<Editor />} />
               </Route>
+              <Route path="*" element={<Navigate to="/error/404" />} />
             </Routes>
           </AuthProvider>
         </ClientProvider>
