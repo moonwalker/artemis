@@ -5,9 +5,11 @@ import Authenticate from './pages/authenticate'
 import Home from './pages/home'
 import Login from './pages/login'
 import Error from './pages/error'
+import Editor from './pages/editor'
 import { AuthProvider, RequireAuth } from './lib/auth'
 import { ClientProvider } from './lib/moonbase'
 import Layout from './components/layout'
+
 
 export default function App() {
   return (
@@ -21,6 +23,7 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route element={<RequireAuth><Layout /></RequireAuth>}>
                 <Route path="/" element={<Home />} />
+                <Route path="/:route" element={<Editor />} />
               </Route>
             </Routes>
           </AuthProvider>
