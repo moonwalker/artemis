@@ -34,7 +34,7 @@ jobs:
                   },
                   "accessory": {
                     "type": "image",
-                    "image_url": "https://artemis.mw.zone/assets/logo.png",
+                    "image_url": "https://raw.githubusercontent.com/moonwalker/artemis/main/src/assets/logo.png",
                     "alt_text": "artemis logo"
                   }
                 }
