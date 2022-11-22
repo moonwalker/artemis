@@ -31,6 +31,11 @@ jobs:
                   "text": {
                     "type": "mrkdwn",
                     "text": "new version <${{ github.event.head_commit.url }}|${{ env.gitrev }}> deployed to <https://artemis.mw.zone|artemis>"
+                  },
+                  "accessory": {
+                    "type": "image",
+                    "image_url": "https://artemis.mw.zone/assets/logo.png",
+                    "alt_text": "artemis logo"
                   }
                 }
               ]
