@@ -1,5 +1,5 @@
 import * as React from "react";
-import { getToken } from '../auth'
+import { getToken, unauthorized } from '../auth'
 
 interface ClientType {
     apiUrl: string,
@@ -46,10 +46,11 @@ const call = async (method: string, url: string, data?: any): Promise<any> => {
     const res = response.json()
     if (!response.ok) {
         return res.then(data => {
-            if (data.code == 403) {
-                history.replaceState(location.pathname, '', '/restricted')
-            }
-            return { error: data.message };
+            if (data.code == 401 || data.code == 403) {
+                unauthorized()
+                history.replaceState(location.pathname, '', '/error/403')
+            } else
+                return { error: data.message };
         })
     }
 

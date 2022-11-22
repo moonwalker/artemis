@@ -60,6 +60,10 @@ export function getToken(): string | null {
   return null
 }
 
+export function unauthorized() {
+  localStorage.removeItem(USER_NAME)
+}
+
 export function useAuth() {
   return React.useContext(AuthContext);
 }
@@ -89,13 +93,8 @@ export function AuthStatus() {
 export function RequireAuth({ children }: { children: JSX.Element }) {
   const auth = useAuth();
   const location = useLocation();
-  const [searchParams] = useSearchParams();
 
   if (!auth.user) {
-    const code = searchParams.get("code")
-    if (!!code) {
-      return <Navigate to="/authenticate" state={{ from: location, code: code }} replace />;
-    }
     return <Navigate to="/login" state={{ from: location }} replace />;
   }
 
