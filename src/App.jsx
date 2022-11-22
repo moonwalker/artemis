@@ -10,7 +10,6 @@ import { AuthProvider, RequireAuth } from './lib/auth'
 import { ClientProvider } from './lib/moonbase'
 import Layout from './components/layout'
 
-
 export default function App() {
   return (
     <div className="container mx-auto">
@@ -23,7 +22,7 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route element={<RequireAuth><Layout /></RequireAuth>}>
                 <Route path="/" element={<Home />} />
-                <Route path="/:route" element={<Editor />} />
+                <Route path="/*" element={<Editor />} />
               </Route>
             </Routes>
           </AuthProvider>
