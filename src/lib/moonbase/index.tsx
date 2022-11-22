@@ -46,7 +46,7 @@ const call = async (method: string, url: string, data?: any): Promise<any> => {
     const res = response.json()
     if (!response.ok) {
         return res.then(data => {
-            if (data.code == 401 || data.code == 403) {
+            if (data.status == 401 || data.status == 403) {
                 unauthorized()
                 history.replaceState(location.pathname, '', '/error/403')
             } else

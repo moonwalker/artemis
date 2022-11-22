@@ -6,13 +6,13 @@ import networkImage from '../../assets/logo.png'
 
 export default () => {
     const { code } = useParams()
-    return <div class="flex items-center justify-center h-screen">
-        <div class="rounded-lg border shadow-lg p-10">
+    return <div className="flex items-center justify-center h-screen">
+        <div className="rounded-lg border shadow-lg p-10">
             <div>
                 <img className="mx-auto w-auto" src={networkImage} alt="Artemis" />
             </div>
-            <div class="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-                <div class="w-full max-w-md space-y-8">
+            <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+                <div className="w-full max-w-md space-y-8">
                     {
                         {
                             '403': <Error403 />,

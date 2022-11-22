@@ -1,5 +1,5 @@
 export default () => (<>
-    <h3 class="text-3xl font-bold mb-8">403 - Restricted</h3>
+    <h3 className="text-3xl font-bold mb-8">403 - Restricted</h3>
     <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="w-full max-w-md space-y-8">
             <a href="/login" type="button" className="group relative flex w-full justify-center rounded-md border py-2 px-4 text-sm text-zinc-700 font-medium shadow-sm shadow-zinc-300 hover:bg-zinc-600 hover:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2" onClick={auth.signout}>
