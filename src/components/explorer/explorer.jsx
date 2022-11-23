@@ -11,7 +11,7 @@ export default ({ owner, repo, branch, path }) => {
 
     const client = useClient()
 
-    const sortItems = (a, b) => ((a.type > b.type) ? -1 : ((a.type < b.type) ? 1 : ((a.name < b.name) ? -1 : 1)))
+    const sortItems = (a, b) => ((a.type < b.type) ? -1 : ((a.type > b.type) ? 1 : ((a.name < b.name) ? -1 : 1)))
 
     useEffect(() => {
         client.get(endpoints.branches(owner, repo)).then(data => {
