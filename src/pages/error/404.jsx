@@ -1,3 +1,3 @@
 export default () => (<>
-    403 - Not found
+    404 - Not found
 </>)
