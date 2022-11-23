@@ -1,5 +1,6 @@
 import * as React from "react";
 import { getToken, unauthorized } from '../auth'
+export * from './endpoints'
 
 interface ClientType {
     apiUrl: string,

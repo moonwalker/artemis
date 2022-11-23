@@ -2,10 +2,10 @@ import * as React from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
 
 import Authenticate from './pages/authenticate'
-import Home from './pages/home'
 import Login from './pages/login'
 import Error from './pages/error'
-import Editor from './pages/editor'
+import Explorer from './components/explorer'
+import Repos from './components/repos'
 import { AuthProvider, RequireAuth } from './lib/auth'
 import { ClientProvider } from './lib/moonbase'
 import Layout from './components/layout'
@@ -21,8 +21,8 @@ export default function App() {
               <Route path="/authenticate/:code" element={<Authenticate />} />
               <Route path="/login" element={<Login />} />
               <Route element={<RequireAuth><Layout /></RequireAuth>}>
-                <Route path="/" element={<Home />} />
-                <Route path="/:owner/:repo/:element/:branch/*" element={<Editor />} />
+                <Route path="/" element={<Repos />} />
+                <Route path="/:owner/:repo/:element/:branch/*" element={<Explorer />} />
               </Route>
               <Route path="*" element={<Navigate to="/error/404" />} />
             </Routes>
