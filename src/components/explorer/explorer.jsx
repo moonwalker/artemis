@@ -4,11 +4,11 @@ import { useClient, endpoints } from '../../lib/moonbase'
 import Error from '../../components/error'
 import Loader from '../../components/loader'
 
-export default ({ owner, repo, branch, path}) => {  
+export default ({ owner, repo, branch, path }) => {
     const [items, setItems] = useState(null)
     const [branches, setBranches] = useState(null)
     const [error, setError] = useState(null)
-    
+
     const client = useClient()
 
     const sortItems = (a, b) => ((a.type > b.type) ? -1 : ((a.type < b.type) ? 1 : ((a.name < b.name) ? -1 : 1)))
@@ -27,7 +27,7 @@ export default ({ owner, repo, branch, path}) => {
             if (data.error) {
                 return setError(data.error)
             }
-            setItems(data.sort(sortItems).map(i => ({ ...i, url: formatItemUrl(i) })))
+            setItems(data.sort(sortItems))
         }).catch(err => setError(err.message))
     }, [branch, path])
 
