@@ -11,6 +11,18 @@ export default ({ owner, repo, branch, path }) => {
 
     const client = useClient()
 
+    const itemUrl = (i) => {
+        let url = `/${owner}/${repo}/`
+        if (i.type == 'file')
+            url += 'blob'
+        else
+            url += 'tree'
+
+        url += `/${branch}/${i.path}`
+
+        return url
+    }
+
     const sortItems = (a, b) => ((a.type < b.type) ? -1 : ((a.type > b.type) ? 1 : ((a.name < b.name) ? -1 : 1)))
 
     useEffect(() => {
@@ -27,7 +39,7 @@ export default ({ owner, repo, branch, path }) => {
             if (data.error) {
                 return setError(data.error)
             }
-            setItems(data.sort(sortItems))
+            setItems(data.sort(sortItems).map(i => ({ ...i, url: itemUrl(i) })))
         }).catch(err => setError(err.message))
     }, [branch, path])
 
@@ -69,7 +81,7 @@ export default ({ owner, repo, branch, path }) => {
                 </div>{/* <!-- end of commits-container --> */}
                 <div className="file-explorer rounded-md rounded-t-none border border-gray-300 text-gray-700 divide-y divide-gray-300">
                     {!items && !error && <Loader color="text-zinc-700" />}
-                    {!!items && items.map((i, idx) => (<Link key={idx} to={i.path} className="flex justify-between px-4 py-2 hover:bg-gray-200">
+                    {!!items && items.map((i, idx) => (<Link key={idx} to={i.url} className="flex justify-between px-4 py-2 hover:bg-gray-200">
                         <div className="w-4/12 flex items-center">
                             {i.type == 'dir' && <DirIcon />}
                             {i.type == 'file' && <FileIcon />}
