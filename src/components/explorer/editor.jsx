@@ -11,7 +11,7 @@ export default ({ owner, repo, branch, path }) => {
     const client = useClient()
     const navigate = useNavigate()
 
-    const redirectUrl = `/${owner}/${repo}/tree/${branch}`
+    let redirectUrl = `/${owner}/${repo}/tree/${branch}`
     const idx = path.lastIndexOf("/")
     if (idx != -1)
         redirectUrl += `/${path.substring(0, idx)}`
