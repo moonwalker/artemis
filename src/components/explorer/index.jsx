@@ -1,4 +1,4 @@
-import { Navigate, useParams } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import Editor from './editor'
 import Explorer from './explorer'
 

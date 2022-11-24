@@ -2,9 +2,10 @@ import * as React from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
 
 import Authenticate from './pages/authenticate'
-import Login from './pages/login'
+import Editorial from './components/editorial'
 import Error from './pages/error'
 import Explorer from './components/explorer'
+import Login from './pages/login'
 import Repos from './components/repos'
 import { AuthProvider, RequireAuth } from './lib/auth'
 import { ClientProvider } from './lib/moonbase'
@@ -22,6 +23,15 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route element={<RequireAuth><Layout /></RequireAuth>}>
                 <Route path="/" element={<Repos />} />
+                <Route path="cms" >
+                  <Route path=":owner/:repo/:branch" element={<Editorial />}>
+                    <Route path=":collection" element={<Editorial />}>
+                      <Route path=":document" element={<Editorial />} />
+                      <Route path="" element={<Editorial />} />
+                    </Route>
+                    <Route path="" element={<Editorial />} />
+                  </Route>
+                </Route>
                 <Route path="/:owner/:repo/:element/:branch/*" element={<Explorer />} />
               </Route>
               <Route path="*" element={<Navigate to="/error/404" />} />

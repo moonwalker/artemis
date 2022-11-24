@@ -20,10 +20,10 @@ class Client implements ClientType {
         return call('GET', this.apiUrl + url)
     }
     post = (url: string, data: any): Promise<any> => {
-        return call('POST', url, data)
+        return call('POST', this.apiUrl + url, data)
     }
     del = (url: string): Promise<any> => {
-        return call('DELETE', url)
+        return call('DELETE', this.apiUrl + url)
     }
     constructor(apiUrl: string) {
         this.apiUrl = apiUrl

@@ -5,6 +5,6 @@ export const endpoints = {
     blob: (owner, repo, branch, path) => (`/repos/${owner}/${repo}/blob/${branch}/${path}`),
 
     collections: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}`),
-    documents: (owner, repo, branch, collection) => (`${this.collections(owner, repo, branch)}/${collection}`),
-    document: (owner, repo, branch, collection, document) => (`${this.documents(owner, repo, branch, collection)}/${document}`),
+    collection: (owner, repo, branch, collection) => (`/cms/${owner}/${repo}/${branch}/${collection}`),
+    document: (owner, repo, branch, collection, document) => (`/cms/${owner}/${repo}/${branch}/${collection}/${document}`),
 }
