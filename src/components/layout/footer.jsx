@@ -1,5 +1,5 @@
 export default function Footer() {
-    const commit = (__APP_ENV__.COMMIT_SHA || __APP_ENV__.mode === 'development' ? 'dev' : '').substring(0, 7)
+    const commit = (__APP_ENV__.COMMIT_SHA || (__APP_ENV__.mode === 'development' ? 'dev' : 'n/a')).substring(0, 7)
 
     return (
         <footer className="p-4 bg-zinc-100 shadow-inner fixed inset-x-0 bottom-0 md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800">
