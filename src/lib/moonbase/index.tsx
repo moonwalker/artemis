@@ -44,18 +44,22 @@ const call = async (method: string, url: string, data?: any): Promise<any> => {
     }
 
     const response = (await fetch(url, { method, headers, body }))
-    const res = response.json()
-    if (!response.ok) {
-        return res.then(data => {
-            if (data.status == 401 || data.status == 403) {
-                unauthorized()
-                history.replaceState(location.pathname, '', '/error/403')
-            } else
-                return { error: data.message };
-        })
+    const contentType = response.headers.get("content-type");
+    if (contentType && contentType.indexOf("application/json") !== -1) {
+        const res = response.json()
+        if (!response.ok) {
+            return res.then(data => {
+                if (data.status == 401 || data.status == 403) {
+                    unauthorized()
+                    history.replaceState(location.pathname, '', '/error/403')
+                } else
+                    return { error: data.message }
+            })
+        }
+        return res
     }
 
-    return res;
+    return response.text()
 }
 
 export function useClient(): ClientType {
