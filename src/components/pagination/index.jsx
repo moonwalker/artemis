@@ -45,13 +45,9 @@ export default ({ count = 0, lastPage = 1 }) => {
                     <Link to={pathname} className={"relative z-10 inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 " + (page == 1 ? activeClass + " rounded-l-md" : inactiveClass)}>1</Link>
                     {lastPage > 1 && <Link to={`${pathname}?page=2`} className={"relative z-10 inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 " + (page == 2 ? activeClass : inactiveClass)}>2</Link>}
                     {/* <a href="#" className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex">3</a> */}
-                    {lastPage > 4 && <>
-                        <span className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">...</span>
-                        {(page > 2 || page < lastPage - 1) && <>
-                            <span className={"relative z-10 inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 pointer-events-none border-green-500 bg-green-50 text-green-600"}>{page + 1}</span>
-                            <span className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">...</span>
-                        </>}
-                    </>}
+                    {lastPage > 4 && page != 3 && <span className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">...</span>}
+                    {(page > 2 && page < lastPage - 1) && <span className={"relative z-10 inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 pointer-events-none border-green-500 bg-green-50 text-green-600"}>{page}</span>}
+                    {lastPage > 4 && page != lastPage - 2 && <span className="relative inline-flex items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700">...</span>}
                     {/* <a href="#" className="relative hidden items-center border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-20 md:inline-flex">8</a> */}
                     {lastPage > 3 && <Link to={`${pathname}?page=${lastPage - 1}`} className={"relative z-10 inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 " + (page == lastPage - 1 ? activeClass : inactiveClass)}>{lastPage - 1}</Link>}
                     {lastPage > 2 && <Link to={`${pathname}?page=${lastPage}`} className={"relative z-10 inline-flex items-center border px-4 py-2 text-sm font-medium focus:z-20 " + (page == lastPage ? activeClass + " rounded-r-md" : inactiveClass)}>{lastPage}</Link>}
