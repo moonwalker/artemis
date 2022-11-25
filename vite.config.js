@@ -15,7 +15,8 @@ export default defineConfig(({ mode }) => {
     },
     define: {
       __APP_ENV__: {
-        COMMIT_SHA: env.CF_PAGES_COMMIT_SHA,
+        MODE: mode,
+        COMMIT_SHA: env.CF_PAGES_COMMIT_SHA || env.VERCEL_GIT_COMMIT_SHA,
         MOONBASE_API_URL: env.MOONBASE_API_URL
       }
     }
