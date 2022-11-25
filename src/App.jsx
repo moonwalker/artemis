@@ -26,7 +26,7 @@ export default function App() {
                 <Route path="cms" >
                   <Route path=":owner/:repo/:branch" element={<Editorial />}>
                     <Route path=":collection" element={<Editorial />}>
-                      <Route path=":document" element={<Editorial />} />
+                      <Route path=":entry" element={<Editorial />} />
                       <Route path="" element={<Editorial />} />
                     </Route>
                     <Route path="" element={<Editorial />} />

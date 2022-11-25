@@ -6,7 +6,34 @@ import { CloseIcon, SaveIcon } from '../common'
 import Error from '../error'
 import Loader from '../loader'
 
-export default ({ owner, repo, branch, collection, document }) => {
+const fileFormatter = (str) => {
+    let status = 'draft'
+    let content = str
+    if (!!str && /^(?=---\n)([\s\S]*)(?:\n---\n)/g.test(str)) {
+        let meta = str.substr(4)
+        const end = meta.indexOf('\n---\n')
+        meta = meta.substring(0, end)
+        content = str.substr(end + 5)
+
+
+        const matches = meta.match(/status:\s*\'(\S+)\'/)
+        if (matches.length)
+            status = matches[1]
+    }
+
+    return { content, meta: { status } }
+}
+
+const contentsFormatter = (content, meta) => {
+    return btoa(`---
+    status: '${meta.status}'
+    ---
+
+    ${content}`)
+}
+
+export default ({ owner, repo, branch, collection, entry }) => {
+    const [meta, setMeta] = useState(null)
     const [content, setContent] = useState('')
     const [error, setError] = useState(null)
     const [loaded, setLoaded] = useState('')
@@ -14,14 +41,15 @@ export default ({ owner, repo, branch, collection, document }) => {
     const client = useClient()
     const navigate = useNavigate()
 
-    let backUrl = `/cms/${owner}/${repo}/${branch}/${collection}`
+    const backUrl = `/cms/${owner}/${repo}/${branch}/${collection}`
+    const apiUrl = endpoints.entry(owner, repo, branch, collection, entry)
 
     const cancel = () => {
         navigate(backUrl)
     }
 
     const save = (e) => {
-        client.post(endpoints.document(owner, repo, branch, collection, document), { login: user.login, contents: btoa(content) }).then(res => {
+        client.put(apiUrl, { login: user.login, name: entry, contents: contentsFormatter(content, meta) }).then(res => {
             if (res.error)
                 return setError(res.error)
             navigate(backUrl)
@@ -29,15 +57,16 @@ export default ({ owner, repo, branch, collection, document }) => {
     }
 
     useEffect(() => {
-        client.get(endpoints.document(owner, repo, branch, collection, document)).then(data => {
+        client.get(apiUrl).then(data => {
             if (data.error) {
                 return setError(data.error)
             }
-            if (data.contents)
-                setContent(atob(data.contents))
+            const file = fileFormatter(atob(data.contents))
+            setMeta(file.meta)
+            setContent(file.content)
         }).catch(err => setError(err.message))
             .finally(() => setLoaded(true))
-    }, [branch, document])
+    }, [branch, entry])
 
     return (<div className="text-gray-900 text-sm">
         {!!error && <Error error={error} />}

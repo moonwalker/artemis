@@ -2,29 +2,29 @@ import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useClient, endpoints } from '../../lib/moonbase'
 import { DeleteButton, FileIcon, NewDocumentIcon } from '../common'
-import Error from '../../components/error'
-import Loader from '../../components/loader'
+import Error from '../error'
+import Loader from '../loader'
 import CreateNew from './create-new'
 
 export default ({ owner, repo, branch, collection }) => {
     const client = useClient()
     const navigate = useNavigate()
     const [addNew, setAddNew] = useState(false)
-    const [documents, setDocuments] = useState(null)
+    const [entries, setEntries] = useState(null)
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        if (!!documents)
-            setDocuments(null)
+        if (!!entries)
+            setEntries(null)
         client.get(endpoints.collection(owner, repo, branch, collection)).then(data => {
             if (data.error) {
                 return setError(data.error)
             }
-            setDocuments(data)
+            setEntries(data)
         }).catch(err => setError(err.message))
     }, [])
 
-    const newDocument = (name) => {
+    const newEntry = (name) => {
         if (!name)
             return setAddNew(false)
 
@@ -37,14 +37,14 @@ export default ({ owner, repo, branch, collection }) => {
             .finally(() => setAddNew(false))
     }
 
-    const deleteDocument = (doc) => (e) => {
+    const deleteEntry = (name) => (e) => {
         e.preventDefault()
         e.stopPropagation()
-        client.del(endpoints.document(owner, repo, branch, collection, doc.name)).then(data => {
+        client.del(endpoints.entry(owner, repo, branch, collection, name)).then(data => {
             if (data.error) {
                 return setError(data.error)
             }
-            setDocuments(documents.filter(c => (d.name != doc.name)))
+            setEntries(entries.filter(e => (e.name != name)))
         }).catch(err => setError(err.message))
     }
 
@@ -69,7 +69,7 @@ export default ({ owner, repo, branch, collection }) => {
                     <div className="flex items-center space-x-2">
                         <button className="border border-gray-400 rounded-md px-4 py-1 hover:bg-gray-200 flex items-center space-x-1" onClick={() => setAddNew(true)}>
                             <NewDocumentIcon />
-                            <div className="font-semibold">New document</div>
+                            <div className="font-semibold">New entry</div>
                         </button>
                     </div>
                 </div> {/* <!-- end of branch-navigation --> */}
@@ -79,8 +79,8 @@ export default ({ owner, repo, branch, collection }) => {
                     </div>
                 </div>{/* <!-- end of commits-container --> */}
                 <div className="file-explorer rounded-md rounded-t-none border border-gray-300 text-gray-700 divide-y divide-gray-300">
-                    {!documents && !error && <Loader color="text-zinc-700" />}
-                    {!!documents && (<Link key='_back' to={`/cms/${owner}/${repo}/${branch}`} className="flex justify-between px-4 py-2 hover:bg-gray-200">
+                    {!entries && !error && <Loader color="text-zinc-700" />}
+                    {!!entries && (<Link key='_back' to={`/cms/${owner}/${repo}/${branch}`} className="flex justify-between px-4 py-2 hover:bg-gray-200">
                         <div className="w-4/12 flex items-center">
                             <span className="text-bold text-center d-inline-block min-w-[1em]">. .</span>
                         </div>
@@ -88,21 +88,21 @@ export default ({ owner, repo, branch, collection }) => {
                         <div className="w-2/12 text-right"></div>
                     </Link>
                     )}
-                    {!!documents && documents.map((doc, idx) => (<Link key={`${idx}-${doc.name}`} to={`/cms/${owner}/${repo}/${branch}/${collection}/${doc.name}`} className="flex justify-between px-4 py-2 hover:bg-gray-200">
+                    {!!entries && entries.map((e, idx) => (<Link key={`${idx}-${e.name}`} to={`/cms/${owner}/${repo}/${branch}/${collection}/${e.name}`} className="flex justify-between px-4 py-2 hover:bg-gray-200">
                         <div className="w-4/12 flex items-center">
                             <FileIcon />
-                            <span className="ml-3">{doc.name}</span>
+                            <span className="ml-3">{e.name}</span>
                         </div>
                         <div className="w-5/12 truncate"></div>
                         <div className="w-2/12 text-right"></div>
                         <div className="w-1/12 items-center">
-                            <DeleteButton onClick={deleteDocument(doc)} />
+                            <DeleteButton onClick={deleteEntry(e.name)} />
                         </div>
                     </Link>
                     ))}
                 </div>{/* <!-- end of file-explorer --> */}
             </div>
         </div>
-        {addNew && <CreateNew title="document" onClose={newDocument} owner={owner} repo={repo} branch={branch} collection={collection} />}
+        {addNew && <CreateNew title="entry" onClose={newEntry} owner={owner} repo={repo} branch={branch} collection={collection} />}
     </div>)
 }
