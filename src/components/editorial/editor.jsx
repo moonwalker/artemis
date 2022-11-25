@@ -9,11 +9,11 @@ import Loader from '../loader'
 const fileFormatter = (str) => {
     let status = 'draft'
     let content = str
-    if (!!str && /^(?=---\n)([\s\S]*)(?:\n---\n)/g.test(str)) {
-        let meta = str.substr(4)
-        const end = meta.indexOf('\n---\n')
+    if (!!str && /^---\r\n([\s\S]*)\r\n---\r/g.test(str)) {
+        let meta = str.substr(5)
+        const end = meta.indexOf('\r\n---\r\n')
         meta = meta.substring(0, end)
-        content = str.substr(end + 5)
+        content = str.substring(end + 13)
 
 
         const matches = meta.match(/status:\s*\'(\S+)\'/)
