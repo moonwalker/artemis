@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { useClient, endpoints } from '../../lib/moonbase'
 import Error from '../error'
 import Loader from '../loader'
-import Pagination from '../pagination.'
+import Pagination from '../pagination'
 
 export default () => {
     const client = useClient()
