@@ -5,7 +5,7 @@ import Footer from './footer'
 
 export default () => (
     <div className="container mx-auto">
-        <main role="main" className="py-20 md:pl-60">
+        <main role="main" className="py-20 md:pl-20 lg:pl-48">
             <Outlet />
         </main>
         <Sidebar />

@@ -6,7 +6,8 @@ import Editorial from './components/editorial'
 import Error from './pages/error'
 import Explorer from './components/explorer'
 import Login from './pages/login'
-import Repos from './components/repos'
+import ReposList from './components/repository'
+import RepoInfo from './components/repository/info'
 import { AuthProvider, RequireAuth } from './lib/auth'
 import { ClientProvider } from './lib/moonbase'
 import Layout from './components/layout'
@@ -22,9 +23,10 @@ export default function App() {
               <Route path="/authenticate/:code" element={<Authenticate />} />
               <Route path="/login" element={<Login />} />
               <Route element={<RequireAuth><Layout /></RequireAuth>}>
-                <Route path="/" element={<Repos />} />
+                <Route path="/" element={<ReposList />} />
                 <Route path="cms" >
-                  <Route path=":owner/:repo/:branch" element={<Editorial />}>
+                  <Route path=":owner/:repo/:branch">
+                    <Route path="info" element={<RepoInfo />} />
                     <Route path=":collection" element={<Editorial />}>
                       <Route path=":entry" element={<Editorial />} />
                       <Route path="" element={<Editorial />} />
@@ -32,7 +34,7 @@ export default function App() {
                     <Route path="" element={<Editorial />} />
                   </Route>
                 </Route>
-                <Route path="/:owner/:repo/:element/:branch/*" element={<Explorer />} />
+                {/* <Route path="/:owner/:repo/:element/:branch/*" element={<Explorer />} /> */}
               </Route>
               <Route path="*" element={<Navigate to="/error/404" />} />
             </Routes>

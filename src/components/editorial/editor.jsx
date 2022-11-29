@@ -21,19 +21,19 @@ const fileFormatter = (str) => {
             status = matches[1]
     }
 
-    return { content, meta: { status } }
+    return { content, status }
 }
 
-const contentsFormatter = (content, meta) => {
+const contentsFormatter = (content, status) => {
     return btoa(`---
-    status: '${meta.status}'
+    status: '${status}'
     ---
 
     ${content}`)
 }
 
 export default ({ owner, repo, branch, collection, entry }) => {
-    const [meta, setMeta] = useState(null)
+    const [status, setStatus] = useState(null)
     const [content, setContent] = useState('')
     const [error, setError] = useState(null)
     const [loaded, setLoaded] = useState('')
@@ -48,8 +48,8 @@ export default ({ owner, repo, branch, collection, entry }) => {
         navigate(backUrl)
     }
 
-    const save = (e) => {
-        client.put(apiUrl, { login: user.login, name: entry, contents: contentsFormatter(content, meta) }).then(res => {
+    const save = (schema) => {
+        client.put(apiUrl + (schema ? '?save_schema=true' : ''), { login: user.login, name: entry, contents: contentsFormatter(content, status) }).then(res => {
             if (res.error)
                 return setError(res.error)
             navigate(backUrl)
@@ -62,7 +62,7 @@ export default ({ owner, repo, branch, collection, entry }) => {
                 return setError(data.error)
             }
             const file = fileFormatter(atob(data.contents))
-            setMeta(file.meta)
+            setStatus(file.status)
             setContent(file.content)
         }).catch(err => setError(err.message))
             .finally(() => setLoaded(true))
@@ -74,28 +74,34 @@ export default ({ owner, repo, branch, collection, entry }) => {
             <div className="file-editor container w-full">
                 <div className="file-list">
                     {!loaded && !error && <Loader color="text-zinc-700" />}
-                    {loaded && <div className="w-full px-4">
-                        <div className="rounded-md rounded-t-none border border-gray-300 text-gray-70 mb-4">
-                            <textarea className="block h-96 py-4 px-3 w-full text-sm text-gray-700 placeholder-gray-500 font-medium outline-none bg-transparent border border-gray-400 hover:border-white focus:border-green-500 rounded-lg resize-none" id="content-editor" type="text" defaultValue={content} onChange={e => setContent(e.target.value)} >
-                            </textarea>
-                        </div>
-                        <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-2">
-                                <button className="border border-gray-400 rounded-md px-4 py-1 hover:bg-gray-200 flex items-center space-x-2" onClick={cancel}>
-                                    <CloseIcon />
-                                    <div className="font-semibold">Cancel</div>
-                                </button>
+                    {loaded &&
+                        <div className="w-full px-4">
+                            <h3 class="font-medium leading-tight text-3xl mt-0 mb-2 text-grey-600">{entry}</h3>
+                            <div className="rounded-md rounded-t-none border border-gray-300 text-gray-70 mb-4">
+                                <textarea className="block h-96 py-4 px-3 w-full text-sm text-gray-700 placeholder-gray-500 font-medium outline-none bg-transparent border border-gray-400 hover:border-white focus:border-green-500 rounded-lg resize-none" id="content-editor" type="text" defaultValue={content} onChange={e => setContent(e.target.value)} >
+                                </textarea>
                             </div>
-                            <div className="flex items-center space-x-2">
-                                <button className="group border border-green-400 text-white bg-green-600 rounded-md px-4 py-1 hover:bg-green-200 hover:text-gray-600 flex items-center space-x-2" onClick={save}>
-                                    <SaveIcon />
-                                    <div className="font-semibold">Save</div>
-                                </button>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center space-x-2">
+                                    <button className="border border-gray-400 rounded-md px-4 py-1 hover:bg-gray-200 flex items-center space-x-2" onClick={cancel}>
+                                        <CloseIcon />
+                                        <div className="font-semibold">Cancel</div>
+                                    </button>
+                                </div>
+                                <div className="flex items-center space-x-2">
+                                    <button className="group border border-green-400 text-grey-400 bg-green-200 rounded-md px-4 py-1 hover:bg-green-400 flex items-center space-x-2" onClick={() => save()}>
+                                        <SaveIcon />
+                                        <div className="font-semibold">Save</div>
+                                    </button>
+                                    <button className="group border border-green-400 text-grey-400 bg-green-200 rounded-md px-4 py-1 hover:bg-green-400 flex items-center space-x-2" onClick={() => save(true)}>
+                                        <SaveIcon />
+                                        <div className="font-semibold">Save with schema</div>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                    </div>}
+                        </div>}
                 </div>
             </div>{/* <!-- end of file-list --> */}
         </div>{/* <!-- end of file-explorer --> */}
-    </div>)
+    </div >)
 }
