@@ -1,16 +1,15 @@
 import { Outlet } from "react-router-dom";
-// import meta from 'content/site.json'
-// import Header from '@components/header'
-// import Sidebar from '@components/sidebar'
+import Header from './header'
+import Sidebar from './sidebar'
 import Footer from './footer'
 
 export default () => (
     <div className="container mx-auto">
-        {/* <Header /> */}
-        <main role="main" className="py-12">
-            {/* <Sidebar /> */}
+        <main role="main" className="py-20 md:pl-60">
             <Outlet />
         </main>
+        <Sidebar />
+        <Header />
         <Footer />
     </div>
 )

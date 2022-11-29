@@ -1,6 +1,6 @@
 import React from "react";
 import { GithubAuthBox } from '../../components/auth'
-import networkImage from '../../assets/logo.png'
+import logo from '../../assets/logo.png'
 
 export default () => (<div className="flex items-center justify-center h-screen">
     {/* <div class="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]">
@@ -17,7 +17,7 @@ export default () => (<div className="flex items-center justify-center h-screen"
     </div> */}
     <div className="rounded-lg border shadow-lg p-10">
         <div className="justify-center items-center text-center">
-            <img className="mx-auto w-auto" src={networkImage} alt="Artemis" />
+            <img className="mx-auto w-auto" src={logo} alt="Artemis" />
             <h1 className="mx-auto w-auto text-3xl font-bold tracking-wider font-mono">Artemis CMS</h1>
         </div>
         <div className="flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8">

@@ -68,7 +68,7 @@ export default ({ owner, repo, branch }) => {
                             {collections.map((col, idx) => (
                                 <Link key={`${idx}-${col.name}`} to={`/cms/${owner}/${repo}/${branch}/${col.name}`} className="p-4 border border-stone-200 rounded-md shadow-md flex items-center justify-center hover:shadow-xl hover-border-stone-400 focus:outline-none focus:ring focus:ring-stone-600 active:bg-stone-200 active:shadow-inner transition-all">
                                     <div className="flex items-center space-x-2">
-                                        <h3 className="text-lg text-zinc-600 min-w-[10em] lg:min-w-[7em]">{`${col.name}`}</h3>
+                                        <h3 className="text-lg text-zinc-600">{`${col.name}`}</h3>
                                         <DeleteButton onClick={deleteCollection(col)} />
                                     </div>
                                 </Link>))}
