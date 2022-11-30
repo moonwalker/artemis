@@ -49,6 +49,7 @@ export default ({ defaultValue: content }) => {
             customSetup={{
               dependencies: {
                 'next-mdx-remote': '^4.2.0',
+                'remark-gfm': '^3.0.1',
                 ...compsTree.deps
               }
             }}
@@ -76,6 +77,7 @@ const appCode = ({ entry }) => {
   import React, { useState, useEffect } from 'react'
   import { serialize } from 'next-mdx-remote/serialize'
   import { MDXRemote } from 'next-mdx-remote'
+  import remarkGfm from 'remark-gfm'
 
   // components
   import * as comps from '${entry}'
@@ -87,12 +89,15 @@ const appCode = ({ entry }) => {
   const markup = data ? Buffer.from(data, 'base64') : ''
 
   const scope = {}
+  const mdxOptions = {
+    remarkPlugins: [remarkGfm]
+  }
 
   export default function App() {
     const [mdxSource, setMdxSource] = useState('')
 
     const parse = async () => {
-      const s = await serialize(markup, { scope })
+      const s = await serialize(markup, { scope, mdxOptions })
       setMdxSource(s)
     }
 
