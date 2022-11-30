@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import SandpackMDX from '../editors/mdx-sandpack'
 import { useAuth } from '../../lib/auth'
 import { useClient, endpoints } from '../../lib/moonbase'
 import { CloseIcon, SaveIcon } from '../common'
@@ -76,10 +77,10 @@ export default ({ owner, repo, branch, collection, entry }) => {
                     {!loaded && !error && <Loader color="text-zinc-700" />}
                     {loaded &&
                         <div className="w-full px-4">
-                            <h3 class="font-medium leading-tight text-3xl mt-0 mb-2 text-grey-600">{entry}</h3>
+                            <h3 className="font-medium leading-tight text-3xl mt-0 mb-2 text-grey-600">{entry}</h3>
                             <div className="rounded-md rounded-t-none border border-gray-300 text-gray-70 mb-4">
-                                <textarea className="block h-96 py-4 px-3 w-full text-sm text-gray-700 placeholder-gray-500 font-medium outline-none bg-transparent border border-gray-400 hover:border-white focus:border-green-500 rounded-lg resize-none" id="content-editor" type="text" defaultValue={content} onChange={e => setContent(e.target.value)} >
-                                </textarea>
+                                <SandpackMDX className="block h-96 py-4 px-3 w-full text-sm text-gray-700 placeholder-gray-500 font-medium outline-none bg-transparent border border-gray-400 hover:border-white focus:border-green-500 rounded-lg resize-none" id="content-editor" type="text" defaultValue={content} onChange={e => setContent(e.target.value)} >
+                                </SandpackMDX>
                             </div>
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center space-x-2">
