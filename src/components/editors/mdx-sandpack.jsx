@@ -44,7 +44,10 @@ export default ({ defaultValue: content }) => {
               ...prefixFiles({ files: compsTree.files })
             }}
             options={{
-              showTabs: false
+              showTabs: false,
+              externalResources: [
+                'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css'
+              ]
             }}
             customSetup={{
               dependencies: {
@@ -110,9 +113,9 @@ const appCode = ({ entry }) => {
     }
 
     return (
-      <>
+      <div className="markdown-body">
         <MDXRemote {...mdxSource} components={components} />
-      </>
+      </div>
     )
   }`.trim()
 }
