@@ -5,15 +5,20 @@ import { SaveIcon } from '../common'
 export default function Create({ owner, repo, branch, collection, title, onClose }) {
     let [isOpen, setIsOpen] = useState(true)
     let [name, setName] = useState('')
+    let [ext, setExt] = useState('.json')
+    let [hasError, setHasError] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        closeModal(name)
+        closeModal(true)
     }
 
-    const closeModal = (_name) => {
+    const closeModal = (save) => {
+        if (save && (!name || (collection && !ext))) {
+            return setHasError(true)
+        }
         setIsOpen(false)
-        onClose(_name)
+        onClose(save ? `${name}${ext}` : null)
     }
 
     return (
@@ -43,7 +48,7 @@ export default function Create({ owner, repo, branch, collection, title, onClose
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full max-w-2xl transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
@@ -53,7 +58,6 @@ export default function Create({ owner, repo, branch, collection, title, onClose
                                     <form onSubmit={handleSubmit}>
                                         <div className="mt-2">
                                             <div className="text-sm text-gray-500 flex items-center space-x-1">
-                                                <div className="font-semibold">/</div>
                                                 <div className="font-semibold">{owner}</div>
                                                 <div className="font-semibold">/</div>
                                                 <div className="font-semibold">{repo}</div>
@@ -64,15 +68,26 @@ export default function Create({ owner, repo, branch, collection, title, onClose
                                                     <div className="font-semibold">{collection}</div>
                                                     <div className="font-semibold">/</div>
                                                 </>}
-                                                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" placeholder={`${title}`} onChange={e => setName(e.target.value)} />
+                                                <input className={"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" + (hasError && !name ? ' border-red-500' : '')} type="text" placeholder={`${title}`} onChange={e => setName(e.target.value)} />
+                                                {!!collection && <div className="relative">
+                                                    <select className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline w-20" value={ext} placeholder={ext} onChange={e => setExt(e.target.value)}>
+                                                        <option value=".json">.json</option>
+                                                        <option value=".md">.md</option>
+                                                        <option value=".mdx">.mdx</option>
+                                                    </select>
+                                                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                                        <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                            <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                                                        </svg>
+                                                    </div>
+                                                </div>}
                                             </div>
                                         </div>
 
                                         <div className="mt-4">
                                             <button
                                                 type="submit"
-                                                className="border border-green-400 rounded-md px-4 py-1 hover:bg-green-200 flex items-center space-x-1"
-                                            >
+                                                className="border border-green-400 rounded-md px-4 py-1 hover:bg-green-200 flex items-center space-x-1">
                                                 <SaveIcon />
                                                 <div className="font-semibold">Save</div>
                                             </button>
