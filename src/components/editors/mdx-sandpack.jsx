@@ -9,39 +9,44 @@ export default ({ defaultValue: content }) => {
   const client = useClient()
   const { owner, repo, branch } = useParams()
   const [error, setError] = useState(null)
-  const [compsTree, setCompsTree] = useState(null)
+  const [components, setcomponents] = useState(null)
 
   useEffect(() => {
-    if (compsTree) setCompsTree(null)
+    if (components) setcomponents(null)
     client
       .get(endpoints.components(owner, repo, branch, true))
       .then((data) => {
         if (data.error) {
           return setError(data.error)
         }
-        setCompsTree(data)
+        setcomponents(data)
       })
       .catch((err) => setError(err.message))
   }, [branch])
 
+  const scope = {}
+
   return (
     <div className="flex">
       <div className="p-8">
-        {!compsTree && !error && <Loader color="text-zinc-700" />}
+        {!components && !error && <Loader color="text-zinc-700" />}
         {!!error && <Error error={error} />}
-        {!!compsTree && (
+        {!!components && (
           <Sandpack
             template="react"
             theme="auto"
             files={{
               '/App.js': {
-                code: appCode({ entry: compsTree.entry })
+                code: appCode({ entry: components.entry })
+              },
+              '/Scope.js': {
+                code: `export default ${JSON.stringify(scope)}`
               },
               '/Editing.mdx': {
                 code: content,
                 active: true
               },
-              ...prefixFiles({ files: compsTree.files })
+              ...prefixFiles({ files: components.files })
             }}
             options={{
               showTabs: false,
@@ -53,7 +58,7 @@ export default ({ defaultValue: content }) => {
               dependencies: {
                 'next-mdx-remote': '^4.2.0',
                 'remark-gfm': '^3.0.1',
-                ...compsTree.deps
+                ...components.deps
               }
             }}
           />
@@ -91,7 +96,9 @@ const appCode = ({ entry }) => {
   const data = datauri.split(',')[1]
   const markup = data ? Buffer.from(data, 'base64') : ''
 
-  const scope = {}
+  // scope
+  import scope from './Scope.js'
+
   const mdxOptions = {
     remarkPlugins: [remarkGfm]
   }
@@ -100,8 +107,8 @@ const appCode = ({ entry }) => {
     const [mdxSource, setMdxSource] = useState('')
 
     const parse = async () => {
-      const s = await serialize(markup, { scope, mdxOptions })
-      setMdxSource(s)
+      const m = await serialize(markup, { mdxOptions })
+      setMdxSource(m)
     }
 
     useEffect(() => {
@@ -114,7 +121,7 @@ const appCode = ({ entry }) => {
 
     return (
       <div className="markdown-body">
-        <MDXRemote {...mdxSource} components={components} />
+        <MDXRemote {...mdxSource} components={components} scope={scope} />
       </div>
     )
   }`.trim()
