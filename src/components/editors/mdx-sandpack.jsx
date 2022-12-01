@@ -51,7 +51,8 @@ export default ({ defaultValue: content }) => {
             options={{
               showTabs: false,
               externalResources: [
-                'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css'
+                'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css',
+                'https://cdn.tailwindcss.com?plugins=typography'
               ]
             }}
             customSetup={{
@@ -78,9 +79,17 @@ const prefixFiles = ({ files }) => {
 }
 
 const appCode = ({ entry }) => {
-  if (!entry.startsWith('/')) {
+  if (entry && !entry.startsWith('/')) {
     entry = `/${entry}`
   }
+
+  let components = 'components = {}'
+  if (entry) {
+    components = `
+    import * as comps from '${entry}'
+    const components = comps.default`.trim()
+  }
+
   return `
   import React, { useState, useEffect } from 'react'
   import { serialize } from 'next-mdx-remote/serialize'
@@ -88,8 +97,7 @@ const appCode = ({ entry }) => {
   import remarkGfm from 'remark-gfm'
 
   // components
-  import * as comps from '${entry}'
-  const components = comps.default
+  ${components}
 
   // content
   import datauri from './Editing.mdx'
@@ -120,7 +128,7 @@ const appCode = ({ entry }) => {
     }
 
     return (
-      <div className="markdown-body">
+      <div className="prose">
         <MDXRemote {...mdxSource} components={components} scope={scope} />
       </div>
     )
