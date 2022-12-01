@@ -51,8 +51,8 @@ export default ({ defaultValue: content }) => {
             options={{
               showTabs: false,
               externalResources: [
-                'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css',
-                'https://cdn.tailwindcss.com?plugins=typography'
+                'https://cdn.tailwindcss.com?plugins=typography',
+                'https://cdn.jsdelivr.net/npm/github-markdown-css@5.1.0/github-markdown.min.css'
               ]
             }}
             customSetup={{
@@ -128,7 +128,7 @@ const appCode = ({ entry }) => {
     }
 
     return (
-      <div className="prose">
+      <div className="prose markdown-body">
         <MDXRemote {...mdxSource} components={components} scope={scope} />
       </div>
     )
