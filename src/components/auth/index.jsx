@@ -20,7 +20,7 @@ export function Logout() {
 }
 
 export function GithubAuthBox() {
-  const loginUrl = __APP_ENV__.MOONBASE_API_URL + "/login/github?returnURL=/authenticate"
+  const loginUrl = __APP_ENV__.MOONBASE_API_URL + "/login/github?return_url=/authenticate"
   return (
     <div className="w-full max-w-md space-y-8">
       <a className="group relative flex w-full justify-center rounded-md border py-2 px-4 text-sm text-zinc-700 font-medium shadow-sm shadow-zinc-300 hover:bg-zinc-600 hover:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-500 focus:ring-offset-2" href={loginUrl}>
