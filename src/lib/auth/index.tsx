@@ -6,13 +6,8 @@ import {
   useSearchParams
 } from "react-router-dom"
 
-const USER_NAME = 'artemis_user'
+import { User, CookieSession } from './session'
 
-interface User {
-  token: string
-  login: string
-  image: string
-}
 interface AuthContextType {
   user: User | null
   signin: (data: any, callback: VoidFunction) => void
@@ -20,24 +15,21 @@ interface AuthContextType {
   token: () => string | null
 }
 
-let AuthContext = React.createContext<AuthContextType>(null!);
+const AuthContext = React.createContext<AuthContextType>(null!);
+const session = new CookieSession()
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  let usr
-  const stored = localStorage.getItem(USER_NAME)
-  if (stored != null) {
-    usr = JSON.parse(stored)
-  }
+  const usr = session.get()
   const [user, setUser] = React.useState<User | null>(usr)
 
   const signin = (data: any, callback: VoidFunction) => {
-    localStorage.setItem(USER_NAME, JSON.stringify(data))
+    session.set(data)
     setUser(data)
     callback()
   }
 
   const signout = (callback?: VoidFunction) => {
-    localStorage.removeItem(USER_NAME)
+    session.remove()
     setUser(null)
     if (callback) callback()
   }
@@ -52,16 +44,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function getToken(): string | null {
-  const stored = localStorage.getItem(USER_NAME)
-  if (stored) {
-    const user = JSON.parse(stored)
-    return user?.token || null
-  }
-  return null
+  const user = session.get()
+  return user?.token || null
 }
 
 export function unauthorized() {
-  localStorage.removeItem(USER_NAME)
+  session.remove()
 }
 
 export function useAuth() {
