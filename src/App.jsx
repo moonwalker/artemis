@@ -8,7 +8,6 @@ import Explorer from './components/explorer'
 import Login from './pages/login'
 import ReposList from './components/repository'
 import RepoInfo from './components/repository/info'
-import Sandbox from './components/sandbox'
 import { AuthProvider, RequireAuth } from './lib/auth'
 import { ClientProvider } from './lib/moonbase'
 import Layout from './components/layout'
@@ -28,7 +27,6 @@ export default function App() {
                 <Route path="cms" >
                   <Route path=":owner/:repo/:branch">
                     <Route path="info" element={<RepoInfo />} />
-                    <Route path="sandbox" element={<Sandbox />} />
                     <Route path=":collection" element={<Editorial />}>
                       <Route path=":entry" element={<Editorial />} />
                       <Route path="" element={<Editorial />} />
