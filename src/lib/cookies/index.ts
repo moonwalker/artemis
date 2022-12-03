@@ -16,7 +16,7 @@ export const cookies = {
     } else {
       expires = ''
     }
-    const cookie = name + '=' + value + expires + '; path=/'
+    const cookie = name + '=' + value + expires + '; path=/; secure;'
     document.cookie = cookie
   },
   read: function (name: string) {
