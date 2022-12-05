@@ -6,7 +6,7 @@ import {
   useSearchParams
 } from "react-router-dom"
 
-import { User, CookieSession } from './session'
+import { User, CookieSession } from '../session'
 
 interface AuthContextType {
   user: User | null
@@ -16,7 +16,7 @@ interface AuthContextType {
 }
 
 const AuthContext = React.createContext<AuthContextType>(null!);
-const session = new CookieSession()
+const session = new CookieSession("artemis_user")
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const usr = session.get()

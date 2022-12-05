@@ -1,7 +1,5 @@
 import { cookies } from '../cookies'
 
-const SESSION_NAME = 'artemis_user'
-
 export interface User {
   token: string
   login: string
@@ -17,7 +15,7 @@ export interface SessionProvider {
 
 export class CookieSession implements SessionProvider {
   name: string
-  constructor(name: string = SESSION_NAME) {
+  constructor(name: string) {
     this.name = name
   }
 
@@ -44,7 +42,7 @@ export class CookieSession implements SessionProvider {
 
 export class LocalStorageSession implements SessionProvider {
   name: string
-  constructor(name: string = SESSION_NAME) {
+  constructor(name: string) {
     this.name = name
   }
 

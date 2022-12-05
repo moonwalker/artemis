@@ -8,7 +8,7 @@ export default defineConfig(({ mode }) => {
     // vite config
     plugins: [react(), pluginRewriteAll()],
     server: {
-      port: 3000
+      port: env.PORT || 3000
     },
     build: {
       target: 'esnext'

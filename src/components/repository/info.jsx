@@ -18,7 +18,6 @@ export default () => {
                 return setError(data.error)
             }
             setRepository(data)
-            console.log("repository", data)
         }).catch(err => setError(err.message))
     }, [branch])
 
