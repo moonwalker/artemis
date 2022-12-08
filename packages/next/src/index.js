@@ -1,4 +1,4 @@
-import { generate } from '@artemis/content'
+import { generate } from '@moonwalker/artemis-content'
 
 const withArtemis = (nextConfig) => {
   return {
