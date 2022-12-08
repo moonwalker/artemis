@@ -1,0 +1,16 @@
+{
+  "name": "@artemis/cli",
+  "version": "0.1.0",
+  "source": "src/index.js",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "parcel build"
+  },
+  "dependencies": {
+    "commander": "^9.4.1",
+    "@artemis/content": "*"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.1"
+  }
+}

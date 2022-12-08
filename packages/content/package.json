@@ -1,0 +1,16 @@
+{
+  "name": "@artemis/content",
+  "version": "0.1.0",
+  "source": "src/index.js",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "parcel build"
+  },
+  "dependencies": {
+    "fast-glob": "^3.2.12",
+    "gray-matter": "^4.0.3"
+  },
+  "devDependencies": {
+    "parcel": "^2.8.1"
+  }
+}
