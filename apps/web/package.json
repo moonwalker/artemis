@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "Git-based headless CMS frontend",
   "license": "MIT",
+  "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
