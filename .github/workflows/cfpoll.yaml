@@ -6,6 +6,9 @@ jobs:
   notify:
     name: Notify slack
     runs-on: ubuntu-latest
+    environment: 
+      name: production
+      url: https://artemis.mw.zone
     env:
       CF_ACCOUNT_EMAIL: ${{ secrets.CF_ACCOUNT_EMAIL }}
       CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
