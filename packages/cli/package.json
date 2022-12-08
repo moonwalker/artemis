@@ -1,5 +1,5 @@
 {
-  "name": "@artemis/cli",
+  "name": "@moonwalker/artemis-cli",
   "version": "0.1.0",
   "source": "src/index.js",
   "main": "dist/main.js",
@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "commander": "^9.4.1",
-    "@artemis/content": "*"
+    "@moonwalker/artemis-content": "*"
   },
   "devDependencies": {
     "parcel": "^2.8.1"

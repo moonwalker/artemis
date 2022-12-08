@@ -1,5 +1,5 @@
 {
-  "name": "@artemis/next",
+  "name": "@moonwalker/artemis-next",
   "version": "0.1.0",
   "source": "src/index.js",
   "main": "dist/main.js",
@@ -7,7 +7,7 @@
     "build": "parcel build"
   },
   "dependencies": {
-    "@artemis/content": "*"
+    "@moonwalker/artemis-content": "*"
   },
   "devDependencies": {
     "parcel": "^2.8.1"

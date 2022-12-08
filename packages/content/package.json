@@ -1,5 +1,5 @@
 {
-  "name": "@artemis/content",
+  "name": "@moonwalker/artemis-content",
   "version": "0.1.0",
   "source": "src/index.js",
   "main": "dist/main.js",
