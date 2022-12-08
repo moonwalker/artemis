@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect, createElement } from 'react'
+import * as jsxRuntime from 'react/jsx-runtime'
+import { compile, run } from '@mdx-js/mdx'
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import remarkGfm from 'remark-gfm'
@@ -38,4 +40,24 @@ export function MarkdownContent({ content, components, scope }) {
     components: components,
     scope: scope
   })
+}
+
+export const MarkdownContentRSC = async ({ content, components, scope }) => {
+  const code = await compileMDX(content)
+  const MDXContent = await getMDXComponent(code, scope)
+  return MDXContent({ components, ...scope })
+}
+
+const getMDXComponent = async (code) => {
+  const { default: MDXContent } = await run(code, jsxRuntime)
+  return MDXContent
+}
+
+const compileMDX = async (markup) => {
+  return String(
+    await compile(markup, {
+      outputFormat: 'function-body',
+      remarkPlugins: [remarkGfm]
+    })
+  )
 }

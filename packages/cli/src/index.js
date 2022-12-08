@@ -1,10 +1,15 @@
 const { program } = require('commander')
-const { build } = require('./commands')
+const { init, build } = require('./commands')
 
 program
   .name('artemis')
   .description('CLI to parse and generate content')
   .version('0.1.0')
+
+program
+  .command('init')
+  .description('bootstrap project install dependencies')
+  .action(init)
 
 program
   .command('build')
