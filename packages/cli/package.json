@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "source": "src/index.js",
   "main": "dist/main.js",
+  "bin": {
+    "artemis": "bin/artemis"
+  },
   "scripts": {
     "build": "parcel build"
   },
