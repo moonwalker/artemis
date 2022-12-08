@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../lib/auth'
 import { useClient, endpoints } from '../../lib/moonbase'
-import Error from '../../components/error'
-import Loader from '../../components/loader'
+import Error from '../error'
+import Loader from '../loader'
 
 export default ({ owner, repo, branch, path }) => {
     const [content, setContent] = useState(null)

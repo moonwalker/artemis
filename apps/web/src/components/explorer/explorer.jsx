@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useClient, endpoints } from '../../lib/moonbase'
-import Error from '../../components/error'
-import Loader from '../../components/loader'
+import Error from '../error'
+import Loader from '../loader'
 
 export default ({ owner, repo, branch, path }) => {
     const [items, setItems] = useState(null)

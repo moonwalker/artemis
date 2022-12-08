@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useClient, endpoints } from '../../lib/moonbase'
-import Error from '../../components/error'
-import Loader from '../../components/loader'
+import Error from '../error'
+import Loader from '../loader'
 import { DeleteButton, NewCollectionIcon } from '../common'
 import CreateNew from './create-new'
 
