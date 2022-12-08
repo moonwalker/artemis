@@ -6,6 +6,8 @@ import matter from 'gray-matter'
 const supportedFiles = ['*.md', '*.mdx']
 
 export const generate = async (options) => {
+  options = { source: 'content', output: '.artemis/generated', ...options }
+
   const patterns = supportedFiles.map((t) => {
     return join(options.source, '**', t)
   })
