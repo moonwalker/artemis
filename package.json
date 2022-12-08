@@ -1,11 +1,11 @@
 {
   "name": "artemis",
-  "version": "0.1.0",
   "description": "Git-based headless CMS frontend",
   "license": "MIT",
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "bump": "npm version patch --workspaces",
     "publish-packages": "turbo run build && changeset version && changeset publish"
   },
   "devDependencies": {
