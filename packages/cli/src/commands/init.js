@@ -1,6 +1,5 @@
 import { join } from 'path'
-import { stat, mkdir, writeFile } from 'fs/promises'
-import admin from 'artemis-admin/dist/index.json'
+import { stat, mkdir, readFile, writeFile } from 'fs/promises'
 
 export const init = async (options) => {
   const d = join(process.cwd(), options.public, 'admin')
@@ -13,8 +12,9 @@ export const init = async (options) => {
     await mkdir(d, { recursive: true })
   }
 
+  const html = await readFile('dist/admin.html', 'utf8')
   const p = join(d, 'index.html')
-  await writeFile(p, admin.body)
+  await writeFile(p, html)
 
   console.log('[ok]', p)
 }
