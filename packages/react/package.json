@@ -9,7 +9,7 @@
     "./markdown": "./src/markdown.jsx"
   },
   "scripts": {
-    "build": "parcel build"
+    "build": "parcel build --no-cache"
   },
   "dependencies": {
     "@mdx-js/mdx": "^2.1.5",

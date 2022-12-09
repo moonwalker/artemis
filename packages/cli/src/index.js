@@ -1,5 +1,5 @@
 const { program } = require('commander')
-const { init, build } = require('./commands')
+const { init, dev, build } = require('./commands')
 
 program
   .name('artemis')
@@ -9,13 +9,22 @@ program
 program
   .command('init')
   .description('bootstrap project install dependencies')
+  .option('-p, --public <path>', 'public path', 'public')
   .action(init)
+
+program
+  .command('dev')
+  .description('generate content files and watch for changes')
+  .option('-s, --source <path>', 'source path', 'content')
+  .option('-o, --output <path>', 'output path', '.artemis/generated')
+  .option('-e, --exec <cmd>', 'external command to run')
+  .action(dev)
 
 program
   .command('build')
   .description('parse supported file types and generate content files')
-  .option('-s, --source <string>', 'source path', 'content')
-  .option('-o, --output <string>', 'output path', '.artemis/generated')
+  .option('-s, --source <path>', 'source path', 'content')
+  .option('-o, --output <path>', 'output path', '.artemis/generated')
   .action(build)
 
 program.parse()

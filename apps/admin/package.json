@@ -2,8 +2,11 @@
   "name": "artemis-admin",
   "version": "0.1.0",
   "private": true,
+  "source": "src/index.html",
+  "type": "module",
   "scripts": {
-    "build": "parcel build --no-source-maps index.html"
+    "build": "parcel build --no-cache --no-source-maps",
+    "postbuild": "node html2json.js"
   },
   "dependencies": {
     "react": "18.2.0",

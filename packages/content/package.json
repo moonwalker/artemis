@@ -4,9 +4,10 @@
   "source": "src/index.js",
   "main": "dist/main.js",
   "scripts": {
-    "build": "parcel build"
+    "build": "parcel build --no-cache"
   },
   "dependencies": {
+    "chokidar": "^3.5.3",
     "fast-glob": "^3.2.12",
     "gray-matter": "^4.0.3"
   },

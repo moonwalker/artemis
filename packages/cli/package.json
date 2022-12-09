@@ -7,11 +7,12 @@
     "artemis": "bin/artemis"
   },
   "scripts": {
-    "build": "parcel build"
+    "build": "parcel build --no-cache"
   },
   "dependencies": {
-    "commander": "^9.4.1",
-    "@moonwalker/artemis-content": "*"
+    "@moonwalker/artemis-content": "*",
+    "artemis-admin": "*",
+    "commander": "^9.4.1"
   },
   "devDependencies": {
     "parcel": "^2.8.1"
