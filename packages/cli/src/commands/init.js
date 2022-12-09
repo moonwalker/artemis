@@ -1,5 +1,6 @@
 import { join } from 'path'
-import { stat, mkdir, readFile, writeFile } from 'fs/promises'
+import { stat, mkdir, writeFile } from 'fs/promises'
+import admin from '../assets/admin.json'
 
 export const init = async (options) => {
   const d = join(process.cwd(), options.public, 'admin')
@@ -12,9 +13,8 @@ export const init = async (options) => {
     await mkdir(d, { recursive: true })
   }
 
-  const html = await readFile('dist/admin.html', 'utf8')
   const p = join(d, 'index.html')
-  await writeFile(p, html)
+  await writeFile(p, admin.body)
 
   console.log('[ok]', p)
 }

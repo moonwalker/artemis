@@ -1,12 +1,12 @@
 {
   "name": "artemis-admin",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "private": true,
   "source": "src/index.html",
   "type": "module",
   "scripts": {
     "build": "parcel build --no-cache --no-source-maps",
-    "postbuild": "node copyhtml"
+    "postbuild": "node html2json"
   },
   "dependencies": {
     "react": "18.2.0",
