@@ -1,9 +1,9 @@
 import { useState, useEffect, createRef } from 'react'
+import { Editor } from './editor'
 
 export const Preview = ({ url }) => {
   const iframeRef = createRef()
-  const txtareaRef = createRef()
-  const [activeQuery, setActiveQuery] = useState()
+  const [activeData, setActiveData] = useState()
 
   // const urlParams = new URLSearchParams(window.location.search)
   // const iframeUrl = props.url || urlParams.get('path') || '/'
@@ -14,7 +14,7 @@ export const Preview = ({ url }) => {
     if (iframeRef.current) {
       window.addEventListener('message', (event) => {
         if (event.data.type === 'open') {
-          setActiveQuery(event.data)
+          setActiveData(event.data)
         }
         if (event.data.type === 'close') {
           //
@@ -34,11 +34,11 @@ export const Preview = ({ url }) => {
     }
   }, [iframeRef.current])
 
-  const updateData = (e) => {
+  const updateData = (data) => {
     iframeRef.current?.contentWindow?.postMessage({
       type: 'updateData',
-      id: activeQuery.id,
-      data: JSON.parse(e.currentTarget.value)
+      id: activeData.id,
+      data: data
     })
   }
 
@@ -46,19 +46,14 @@ export const Preview = ({ url }) => {
     <div className="min-h-screen flex">
       <nav className="w-96 flex-none bg-slate-200 px-4 py-4">
         <div>Edit</div>
-        <textarea
-          ref={txtareaRef}
-          style={{ width: '100%', height: '75vh' }}
-          defaultValue={JSON.stringify(activeQuery?.data)}
-          onChange={updateData}
-        ></textarea>
+        <Editor data={activeData?.data} update={updateData} />
       </nav>
       <main className="flex-1 min-w-0 overflow-auto">
         <div>
           <iframe
             ref={iframeRef}
-            style={{ width: '100%', height: '100vh' }}
             src={iframeUrl}
+            style={{ width: '100%', height: '100vh' }}
           ></iframe>
         </div>
       </main>

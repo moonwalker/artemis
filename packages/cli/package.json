@@ -1,8 +1,9 @@
 {
   "name": "@moonwalker/artemis-cli",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "source": "src/index.js",
   "main": "dist/main.js",
+  "type": "commonjs",
   "bin": {
     "artemis": "bin/artemis"
   },
@@ -14,6 +15,7 @@
     "commander": "^9.4.1"
   },
   "devDependencies": {
-    "parcel": "^2.8.1"
+    "parcel": "^2.8.1",
+    "process": "^0.11.10"
   }
 }

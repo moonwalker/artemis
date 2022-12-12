@@ -1,6 +1,6 @@
 {
   "name": "artemis-admin",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "private": true,
   "source": "src/index.html",
   "type": "module",
@@ -9,6 +9,8 @@
     "postbuild": "node html2json"
   },
   "dependencies": {
+    "@codemirror/lang-javascript": "^6.1.2",
+    "@uiw/react-codemirror": "^4.19.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },

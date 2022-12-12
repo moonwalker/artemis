@@ -1,6 +1,6 @@
 {
   "name": "@moonwalker/artemis-react",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "source": "src/index.js",
   "main": "dist/main.js",
   "type": "module",

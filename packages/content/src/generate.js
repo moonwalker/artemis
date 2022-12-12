@@ -49,7 +49,7 @@ const parseFile = async ({ path, output }) => {
     const ext = extname(path)
     if (ext === '.md' || ext === '.mdx') {
       const parsed = matter(data)
-      data = JSON.stringify({ ...parsed.data, body: parsed.content }, null, 2)
+      data = JSON.stringify({ ...parsed.data, body: parsed.content.trim() }, null, 2)
       outfile += '.json'
     }
 

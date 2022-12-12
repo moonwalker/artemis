@@ -1,6 +1,6 @@
 {
   "name": "@moonwalker/artemis-next",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "source": "src/index.js",
   "main": "dist/main.js",
   "scripts": {

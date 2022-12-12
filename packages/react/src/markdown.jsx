@@ -23,8 +23,10 @@ export function MarkdownContent({ content, components, scope }) {
   })
 
   const compile = async () => {
-    const s = await serialize(data, serializeOptions)
-    setSource(s)
+    if (data.body) {
+      const s = await serialize(data.body, serializeOptions)
+      setSource(s)
+    }
   }
 
   useEffect(() => {
@@ -41,6 +43,8 @@ export function MarkdownContent({ content, components, scope }) {
     scope: scope
   })
 }
+
+// experiments, not in use atm
 
 export const MarkdownContentRSC = async ({ content, components, scope }) => {
   const code = await compileMDX(content)
