@@ -1,6 +1,6 @@
 {
   "name": "@moonwalker/artemis-content",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "source": "src/index.js",
   "main": "dist/main.js",
   "scripts": {

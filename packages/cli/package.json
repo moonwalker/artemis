@@ -1,6 +1,6 @@
 {
   "name": "@moonwalker/artemis-cli",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "source": "src/index.js",
   "main": "dist/main.js",
   "type": "commonjs",
@@ -11,7 +11,7 @@
     "build": "parcel build --no-cache"
   },
   "dependencies": {
-    "@moonwalker/artemis-content": "*",
+    "@moonwalker/artemis-content": "latest",
     "commander": "^9.4.1"
   },
   "devDependencies": {
