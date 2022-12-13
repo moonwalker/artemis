@@ -1,4 +1,4 @@
 import { createRoot } from 'react-dom/client'
-import EditPage from './page'
+import { AdminPage } from './app'
 
-createRoot(document.getElementById('root')).render(<EditPage />)
+createRoot(document.getElementById('root')).render(<AdminPage />)

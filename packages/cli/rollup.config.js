@@ -9,9 +9,15 @@ export default {
   plugins: [
     url({
       include: ['**/*.zip'],
-      limit: 2048000, // 2mb
+      limit: null,
       emitFiles: false
     })
   ],
-  external: ['path', 'fs/promises', 'commander', '@moonwalker/artemis-content']
+  external: [
+    'path',
+    'fs/promises',
+    '@moonwalker/artemis-content',
+    'commander',
+    'decompress'
+  ]
 }

@@ -12,7 +12,8 @@ export function useArtemis(props) {
   }, [id])
 
   useEffect(() => {
-    parent.postMessage({ id, type: 'open', ...props }, targetOrigin)
+    const path = window.location.pathname
+    parent.postMessage({ id, type: 'open', path, ...props }, targetOrigin)
 
     window.addEventListener('message', (event) => {
       if (event.data.id === id && event.data.type === 'updateData') {
