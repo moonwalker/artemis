@@ -1,6 +1,8 @@
 import { join } from 'path'
-import { stat, mkdir, writeFile } from 'fs/promises'
-import admin from '../assets/admin.json' assert { type: 'json' }
+import { stat, mkdir } from 'fs/promises'
+import decompress from 'decompress'
+
+import adminuri from '../assets/admin.zip'
 
 export const init = async (options) => {
   const d = join(process.cwd(), options.public, 'admin')
@@ -13,8 +15,17 @@ export const init = async (options) => {
     await mkdir(d, { recursive: true })
   }
 
-  const p = join(d, 'index.html')
-  await writeFile(p, admin.body)
+  const adminb64 = adminuri.split(',')[1]
+  const adminzip = adminb64 ? Buffer.from(adminb64, 'base64') : ''
 
-  console.log('[ok]', p)
+  decompress(adminzip, d)
+    .then((files) => {
+      files.forEach((f) => {
+        console.log('>', f.path)
+      })
+      console.log('[ok]', 'admin')
+    })
+    .catch((error) => {
+      console.log(['err'], error)
+    })
 }

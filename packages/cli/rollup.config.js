@@ -1,4 +1,4 @@
-import json from '@rollup/plugin-json'
+import url from '@rollup/plugin-url'
 
 export default {
   input: 'src/index.js',
@@ -6,6 +6,12 @@ export default {
     file: 'dist/main.js',
     format: 'esm'
   },
-  plugins: [json()],
+  plugins: [
+    url({
+      include: ['**/*.zip'],
+      limit: 2048000, // 2mb
+      emitFiles: false
+    })
+  ],
   external: ['path', 'fs/promises', 'commander', '@moonwalker/artemis-content']
 }

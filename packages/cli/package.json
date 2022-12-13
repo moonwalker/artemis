@@ -1,20 +1,22 @@
 {
   "name": "@moonwalker/artemis-cli",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "type": "module",
   "main": "dist/main.js",
   "bin": {
     "artemis": "bin/artemis.js"
   },
   "scripts": {
+    "prebuild": "make packadmin",
     "build": "rollup -c"
   },
   "dependencies": {
     "@moonwalker/artemis-content": "*",
-    "commander": "^9.4.1"
+    "commander": "^9.4.1",
+    "decompress": "^4.2.1"
   },
   "devDependencies": {
-    "@rollup/plugin-json": "^5.0.2",
+    "@rollup/plugin-url": "^8.0.1",
     "rollup": "^3.7.4"
   }
 }

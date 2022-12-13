@@ -1,11 +1,10 @@
 {
   "name": "artemis-admin",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
-    "postbuild": "node html2json"
+    "build": "vite build"
   },
   "dependencies": {
     "react": "18.2.0",

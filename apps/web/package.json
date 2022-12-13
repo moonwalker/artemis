@@ -1,6 +1,6 @@
 {
   "name": "artemis-web",
-  "version": "0.1.17",
+  "version": "0.1.18",
   "description": "Git-based headless CMS frontend",
   "license": "MIT",
   "private": true,
