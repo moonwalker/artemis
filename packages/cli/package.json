@@ -10,7 +10,7 @@
     "build": "esbuild src/index.js --bundle --platform=node --format=esm --external:../../node_modules/* --outfile=dist/main.js"
   },
   "dependencies": {
-    "@moonwalker/artemis-content": "file:./packages/content",
+    "@moonwalker/artemis-content": "workspace:*",
     "commander": "^9.4.1"
   },
   "devDependencies": {

@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
-    "bump": "npm version patch --workspaces",
-    "publish-packages": "turbo run build && changeset version && changeset publish"
+    "changes": "changeset",
+    "bump": "pnpm version patch --workspaces",
+    "release": "turbo run build && changeset version && pnpm install && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.25.2",
