@@ -7,7 +7,7 @@
     "build": "turbo run build",
     "changes": "changeset",
     "bump": "pnpm version patch --workspaces",
-    "release": "turbo run build && changeset version && pnpm install && changeset publish"
+    "release": "turbo run build && changeset version && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.25.2",
