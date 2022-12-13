@@ -1,12 +1,8 @@
 {
   "name": "@moonwalker/artemis-react",
-  "version": "0.1.10",
+  "version": "0.1.17",
   "type": "module",
-  "main": "./dist/index.js",
-  "exports": {
-    ".": "./src/index.js",
-    "./markdown": "./src/markdown.js"
-  },
+  "main": "dist/main.js",
   "scripts": {
     "build": "rollup -c"
   },

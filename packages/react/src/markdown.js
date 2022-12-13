@@ -1,5 +1,3 @@
-'use client'
-
 import { useState, useEffect, createElement } from 'react'
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'

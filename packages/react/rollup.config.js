@@ -1,13 +1,14 @@
 export default {
   input: 'src/index.js',
   output: {
-    dir: 'dist',
-    format: 'es'
+    file: 'dist/main.js',
+    format: 'esm',
+    banner: "'use client'\n"
   },
   external: [
-    'react',
     'next-mdx-remote',
     'next-mdx-remote/serialize',
+    'react',
     'remark-gfm'
   ]
 }

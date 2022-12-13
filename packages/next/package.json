@@ -1,15 +1,15 @@
 {
   "name": "@moonwalker/artemis-next",
-  "version": "0.1.10",
+  "version": "0.1.17",
   "type": "module",
   "main": "dist/main.js",
   "scripts": {
-    "build": "esbuild src/index.js --bundle --platform=node --format=esm --external:../../node_modules/* --outfile=dist/main.js"
+    "build": "rollup -c"
   },
   "dependencies": {
-    "@moonwalker/artemis-content": "workspace:*"
+    "@moonwalker/artemis-content": "*"
   },
   "devDependencies": {
-    "esbuild": "^0.16.4"
+    "rollup": "^3.7.4"
   }
 }
