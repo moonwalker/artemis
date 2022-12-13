@@ -1,13 +1,13 @@
 {
   "name": "@moonwalker/artemis-next",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "type": "module",
   "main": "dist/main.js",
   "scripts": {
-    "build": "esbuild src/index.js --bundle --platform=node --format=esm --external:./node_modules/* --outfile=dist/main.js"
+    "build": "esbuild src/index.js --bundle --platform=node --format=esm --external:../../node_modules/* --outfile=dist/main.js"
   },
   "dependencies": {
-    "@moonwalker/artemis-content": "latest"
+    "@moonwalker/artemis-content": "file:./packages/content"
   },
   "devDependencies": {
     "esbuild": "^0.16.4"
