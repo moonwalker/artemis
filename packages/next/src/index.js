@@ -1,6 +1,6 @@
 import { generate } from '@moonwalker/artemis-content'
 
-const withArtemis = (nextConfig) => {
+export const withArtemis = (nextConfig) => {
   return {
     ...nextConfig,
     redirects: async () => {
@@ -9,5 +9,3 @@ const withArtemis = (nextConfig) => {
     }
   }
 }
-
-module.exports = { withArtemis }

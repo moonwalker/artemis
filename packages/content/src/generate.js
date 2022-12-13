@@ -1,9 +1,10 @@
-import { join, dirname, extname } from 'path'
+import { join, dirname, extname, basename, parse } from 'path'
 import { stat, mkdir, readFile, writeFile, unlink } from 'fs/promises'
 import { spawn } from 'node:child_process'
 import fg from 'fast-glob'
 import matter from 'gray-matter'
 import chokidar from 'chokidar'
+import camelCase from 'camelcase'
 
 const supportedFiles = ['*.md', '*.mdx', '*.json']
 
@@ -45,19 +46,48 @@ const parseFile = async ({ path, output }) => {
 
   try {
     let data = await readFile(path, 'utf8')
+    const slug = parse(path).name
 
     const ext = extname(path)
+    if (ext === '.json') {
+      data = { slug, ...JSON.parse(data) }
+    }
     if (ext === '.md' || ext === '.mdx') {
       const parsed = matter(data)
-      data = JSON.stringify({ ...parsed.data, body: parsed.content.trim() }, null, 2)
+      const body = parsed.content.trim()
+      data = { slug, ...parsed.data, body }
       outfile += '.json'
     }
 
-    await writeFile(outfile, data)
+    await writeFile(outfile, JSON.stringify(data, null, 2))
     console.log('[ok]', outfile)
+
+    await generateIndex(outdir)
   } catch (err) {
     console.error('[err]', outfile, err)
   }
+}
+
+const generateIndex = async (outdir) => {
+  let data = ''
+  let names = []
+
+  const entries = await fg(join(outdir, '*.json'))
+
+  entries.forEach((path) => {
+    const name = camelCase(parse(path).name)
+    names.push(name)
+    data += `import ${name} from './${basename(
+      path
+    )}' assert { type: 'json' }\n`
+  })
+
+  const collection = basename(outdir)
+  data += `\nexport const ${collection} = [${names.join(', ')}]\n`
+
+  const outfile = join(outdir, 'index.js')
+  await writeFile(outfile, data)
+  console.log('[ok]', outfile)
 }
 
 const deleteFile = async ({ path, output }) => {

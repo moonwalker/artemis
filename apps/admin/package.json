@@ -2,26 +2,20 @@
   "name": "artemis-admin",
   "version": "0.1.8",
   "private": true,
-  "source": "src/index.html",
-  "type": "module",
   "scripts": {
-    "build": "parcel build --no-cache --no-source-maps",
+    "build": "vite build",
     "postbuild": "node html2json"
   },
   "dependencies": {
-    "@codemirror/lang-javascript": "^6.1.2",
-    "@uiw/react-codemirror": "^4.19.3",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@parcel/compressor-gzip": "^2.8.1",
-    "@parcel/optimizer-data-url": "^2.8.1",
-    "@parcel/transformer-inline-string": "^2.8.1",
     "@tailwindcss/typography": "^0.5.8",
+    "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.8",
-    "parcel": "^2.8.1",
     "postcss": "^8.4.19",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "vite": "^4.0.0"
   }
 }

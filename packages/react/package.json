@@ -1,18 +1,16 @@
 {
   "name": "@moonwalker/artemis-react",
   "version": "0.1.8",
-  "source": "src/index.js",
-  "main": "dist/main.js",
   "type": "module",
+  "main": "./dist/index.js",
   "exports": {
     ".": "./src/index.js",
-    "./markdown": "./src/markdown.jsx"
+    "./markdown": "./src/markdown.js"
   },
   "scripts": {
-    "build": "parcel build --no-cache"
+    "build": "rollup -c"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^2.1.5",
     "@moonwalker/artemis-content": "latest",
     "next-mdx-remote": "^4.2.0",
     "react": "18.2.0",
@@ -20,6 +18,6 @@
     "remark-gfm": "^3.0.1"
   },
   "devDependencies": {
-    "parcel": "^2.8.1"
+    "rollup": "^3.7.4"
   }
 }

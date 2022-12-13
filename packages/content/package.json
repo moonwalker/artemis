@@ -1,17 +1,18 @@
 {
   "name": "@moonwalker/artemis-content",
   "version": "0.1.8",
-  "source": "src/index.js",
+  "type": "module",
   "main": "dist/main.js",
   "scripts": {
-    "build": "parcel build --no-cache"
+    "build": "esbuild src/index.js --bundle --platform=node --format=esm --external:./node_modules/* --outfile=dist/main.js"
   },
   "dependencies": {
+    "camelcase": "^7.0.0",
     "chokidar": "^3.5.3",
     "fast-glob": "^3.2.12",
     "gray-matter": "^4.0.3"
   },
   "devDependencies": {
-    "parcel": "^2.8.1"
+    "esbuild": "^0.16.4"
   }
 }

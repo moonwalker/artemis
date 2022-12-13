@@ -1,6 +1,6 @@
 import { join } from 'path'
 import { stat, mkdir, writeFile } from 'fs/promises'
-import admin from '../assets/admin.json'
+import admin from '../assets/admin.json' assert { type: 'json' }
 
 export const init = async (options) => {
   const d = join(process.cwd(), options.public, 'admin')

@@ -1,5 +1,7 @@
-const { program } = require('commander')
-const { init, dev, build } = require('./commands')
+import { Command } from 'commander'
+import { init, dev, build } from './commands/index.js'
+
+const program = new Command()
 
 program
   .name('artemis')

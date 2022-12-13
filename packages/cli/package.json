@@ -1,21 +1,19 @@
 {
   "name": "@moonwalker/artemis-cli",
   "version": "0.1.8",
-  "source": "src/index.js",
+  "type": "module",
   "main": "dist/main.js",
-  "type": "commonjs",
   "bin": {
-    "artemis": "bin/artemis"
+    "artemis": "bin/artemis.js"
   },
   "scripts": {
-    "build": "parcel build --no-cache"
+    "build": "esbuild src/index.js --bundle --platform=node --format=esm --external:./node_modules/* --outfile=dist/main.js"
   },
   "dependencies": {
     "@moonwalker/artemis-content": "latest",
     "commander": "^9.4.1"
   },
   "devDependencies": {
-    "parcel": "^2.8.1",
-    "process": "^0.11.10"
+    "esbuild": "^0.16.4"
   }
 }
