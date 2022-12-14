@@ -7,12 +7,12 @@ import './admin.css'
 let targetOrigin = '*' // window.location.origin
 
 export const AdminPage = () => {
+  const iframeUrl = '/'
   const iframeRef = createRef()
-  const [iframeUrl, setIframeUrl] = useState('/')
   const [activeData, setActiveData] = useState()
 
   useEffect(() => {
-    setIframeUrl(window.location.hash.replace('#', '') || '/')
+    iframeRef.current.src = window.location.hash.replace('#', '') || iframeUrl
   }, [])
 
   useEffect(() => {
@@ -26,9 +26,6 @@ export const AdminPage = () => {
           setActiveData()
           window.location.hash = ''
         }
-      })
-      iframeRef.current.addEventListener('load', (e) => {
-        // iframe loaded, not in use atm.
       })
     }
   }, [iframeRef.current])
