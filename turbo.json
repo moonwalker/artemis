@@ -7,6 +7,10 @@
     "build": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**"]
+    },
+    "@moonwalker/artemis-cli:build": {
+      "dependsOn": ["artemis-admin:build"],
+      "outputs": []
     }
   }
 }
