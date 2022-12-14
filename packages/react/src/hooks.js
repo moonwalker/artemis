@@ -13,6 +13,7 @@ export function useArtemis(props) {
 
   useEffect(() => {
     const path = window.location.pathname
+
     parent.postMessage({ id, type: 'open', path, ...props }, targetOrigin)
 
     window.addEventListener('message', (event) => {
@@ -21,7 +22,7 @@ export function useArtemis(props) {
       }
     })
 
-    return () => parent.postMessage({ id, type: 'close' }, targetOrigin)
+    return () => parent.postMessage({ id, type: 'close', path }, targetOrigin)
   }, [id])
 
   return { data }

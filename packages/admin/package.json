@@ -1,0 +1,26 @@
+{
+  "name": "@moonwalker/artemis-admin",
+  "version": "0.1.18",
+  "type": "module",
+  "main": "dist/main.js",
+  "exports": {
+    ".": "./dist/main.js",
+    "./admin.css": "./dist/style.css"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "dependencies": {
+    "framer-motion": "^7.8.0",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.8",
+    "@vitejs/plugin-react": "^3.0.0",
+    "autoprefixer": "^10.4.13",
+    "postcss": "^8.4.20",
+    "tailwindcss": "^3.2.4",
+    "vite": "^4.0.0"
+  }
+}
