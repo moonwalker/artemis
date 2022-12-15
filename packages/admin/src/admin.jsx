@@ -1,6 +1,6 @@
 import { useState, useEffect, createRef } from 'react'
 import { motion } from 'framer-motion'
-import { Editor } from './components/editors'
+import { Editor } from './components/editor'
 
 import './admin.css'
 
@@ -16,16 +16,20 @@ export const AdminPage = ({ appUrl = '/' }) => {
   }, [])
 
   useEffect(() => {
-    window.addEventListener('message', (event) => {
-      if (event.data.type === 'open') {
-        setActiveData(event.data)
-        window.location.hash = `${event.data.path}`
-      }
-      if (event.data.type === 'close') {
-        setActiveData()
-        window.location.hash = ''
-      }
-    })
+    if (iframeRef.current) {
+      window.addEventListener('message', (event) => {
+        if (event.data.type === 'open') {
+          setActiveData(event.data)
+          if (event.data.path) {
+            window.location.hash = event.data.path
+          }
+        }
+        if (event.data.type === 'close') {
+          setActiveData()
+          window.location.hash = ''
+        }
+      })
+    }
   }, [iframeRef.current])
 
   const updateData = (data) => {
