@@ -1,6 +1,6 @@
 {
   "name": "@moonwalker/artemis-admin",
-  "version": "0.1.20",
+  "version": "0.1.21",
   "type": "module",
   "main": "dist/main.js",
   "exports": {
@@ -13,6 +13,8 @@
     "watch": "vite build --watch"
   },
   "dependencies": {
+    "@tiptap/react": "^2.0.0-beta.207",
+    "@tiptap/starter-kit": "^2.0.0-beta.207",
     "framer-motion": "^7.8.0",
     "react": "18.2.0"
   },

@@ -4,30 +4,28 @@ import { Editor } from './editor'
 
 import './admin.css'
 
-let targetOrigin = '*' // window.location.origin
+const targetOrigin = '*' // window.location.origin
 
-export const AdminPage = () => {
-  const iframeUrl = '/'
+export const AdminPage = ({ appUrl = '/' }) => {
   const iframeRef = createRef()
   const [activeData, setActiveData] = useState()
 
+  // set iframe src on client
   useEffect(() => {
-    iframeRef.current.src = window.location.hash.replace('#', '') || iframeUrl
+    iframeRef.current.src = window.location.hash.replace('#', '') || appUrl
   }, [])
 
   useEffect(() => {
-    if (iframeRef.current) {
-      window.addEventListener('message', (event) => {
-        if (event.data.type === 'open') {
-          setActiveData(event.data)
-          window.location.hash = `${event.data.path}`
-        }
-        if (event.data.type === 'close') {
-          setActiveData()
-          window.location.hash = ''
-        }
-      })
-    }
+    window.addEventListener('message', (event) => {
+      if (event.data.type === 'open') {
+        setActiveData(event.data)
+        window.location.hash = `${event.data.path}`
+      }
+      if (event.data.type === 'close') {
+        setActiveData()
+        window.location.hash = ''
+      }
+    })
   }, [iframeRef.current])
 
   const updateData = (data) => {
@@ -65,8 +63,8 @@ export const AdminPage = () => {
       <main className="flex-1 min-w-0 overflow-auto">
         <div>
           <iframe
+            src={appUrl}
             ref={iframeRef}
-            src={iframeUrl}
             style={{ width: '100%', height: '100vh' }}
           ></iframe>
         </div>

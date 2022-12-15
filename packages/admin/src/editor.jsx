@@ -1,3 +1,19 @@
+import { useEffect } from 'react'
+import { useEditor, EditorContent } from '@tiptap/react'
+import StarterKit from '@tiptap/starter-kit'
+
+export const EditorT = ({ data }) => {
+  const editor = useEditor({
+    extensions: [StarterKit]
+  })
+
+  useEffect(() => {
+    editor.value = data?.body
+  }, [data])
+
+  return <EditorContent editor={editor} />
+}
+
 // import { createRef, useEffect } from 'react'
 // import { EditorView, minimalSetup, basicSetup } from 'codemirror'
 // import { javascript } from '@codemirror/lang-javascript'

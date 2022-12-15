@@ -4,7 +4,6 @@ const targetOrigin = '*' // window.location.origin
 
 export function useArtemis(props) {
   const [data, setData] = useState(props.data)
-
   const id = hashCode(JSON.stringify(props.data))
 
   useEffect(() => {
@@ -12,9 +11,7 @@ export function useArtemis(props) {
   }, [id])
 
   useEffect(() => {
-    const path = window.location.pathname
-
-    parent.postMessage({ id, type: 'open', path, ...props }, targetOrigin)
+    parent.postMessage({ id, type: 'open', ...props }, targetOrigin)
 
     window.addEventListener('message', (event) => {
       if (event.data.id === id && event.data.type === 'updateData') {
@@ -22,7 +19,7 @@ export function useArtemis(props) {
       }
     })
 
-    return () => parent.postMessage({ id, type: 'close', path }, targetOrigin)
+    return () => parent.postMessage({ id, type: 'close' }, targetOrigin)
   }, [id])
 
   return { data }
