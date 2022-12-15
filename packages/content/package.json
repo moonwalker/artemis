@@ -1,6 +1,6 @@
 {
   "name": "@moonwalker/artemis-content",
-  "version": "0.1.22",
+  "version": "0.1.23",
   "type": "module",
   "main": "dist/main.js",
   "scripts": {
