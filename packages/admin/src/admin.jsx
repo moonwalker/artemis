@@ -6,13 +6,15 @@ import './admin.css'
 
 const targetOrigin = '*' // window.location.origin
 
-export const AdminPage = ({ appUrl = '/' }) => {
+export const AdminPage = ({ baseUrl }) => {
+  const iframeSrc = baseUrl || '/'
   const iframeRef = createRef()
   const [activeData, setActiveData] = useState()
 
   useEffect(() => {
     const path = window.location.hash.replace('#', '')
-    iframeRef.current.src = appUrl + path
+    const dest = new URL(path, iframeRef.current.src).toString()
+    iframeRef.current.src = dest
   }, [])
 
   useEffect(() => {
@@ -66,7 +68,7 @@ export const AdminPage = ({ appUrl = '/' }) => {
       <main className="flex-1 min-w-0 overflow-auto">
         <div>
           <iframe
-            src={appUrl}
+            src={iframeSrc}
             ref={iframeRef}
             style={{ width: '100%', height: '100vh' }}
           ></iframe>

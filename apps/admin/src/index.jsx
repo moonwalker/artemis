@@ -4,5 +4,5 @@ import { AdminPage } from './app'
 const appUrl = __APP_ENV__.APP_BASE_URL || '/'
 
 createRoot(document.getElementById('root')).render(
-  <AdminPage appUrl={appUrl} />
+  <AdminPage baseUrl={appUrl} />
 )
