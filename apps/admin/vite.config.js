@@ -4,11 +4,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   return {
-    base: '/admin',
+    // base: '/admin',
     plugins: [react()],
     build: {
-      target: 'esnext',
-      assetsDir: '.'
+      target: 'esnext'
+      // assetsDir: '.'
     },
     define: {
       __APP_ENV__: {

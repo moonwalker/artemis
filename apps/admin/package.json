@@ -13,7 +13,6 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.8",
     "@vitejs/plugin-react": "^3.0.0",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.20",

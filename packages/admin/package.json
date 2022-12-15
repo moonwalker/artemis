@@ -13,10 +13,31 @@
     "watch": "vite build --watch"
   },
   "dependencies": {
+    "@tiptap/extension-image": "^2.0.0-beta.207",
+    "@tiptap/extension-link": "^2.0.0-beta.207",
+    "@tiptap/extension-table": "^2.0.0-beta.207",
+    "@tiptap/extension-table-cell": "^2.0.0-beta.207",
+    "@tiptap/extension-table-header": "^2.0.0-beta.207",
+    "@tiptap/extension-table-row": "^2.0.0-beta.207",
+    "@tiptap/html": "^2.0.0-beta.207",
     "@tiptap/react": "^2.0.0-beta.207",
     "@tiptap/starter-kit": "^2.0.0-beta.207",
-    "framer-motion": "^7.8.0",
-    "react": "18.2.0"
+    "framer-motion": "^7.10.0",
+    "marked": "^4.2.4",
+    "prosemirror-markdown": "^1.10.1",
+    "prosemirror-model": "^1.18.3",
+    "react": "18.2.0",
+    "rehype-parse": "^8.0.4",
+    "rehype-remark": "^9.1.2",
+    "rehype-sanitize": "^5.0.1",
+    "rehype-stringify": "^9.0.3",
+    "remark": "^14.0.2",
+    "remark-mdx": "^2.2.1",
+    "remark-parse": "^10.0.1",
+    "remark-rehype": "^10.1.0",
+    "remark-stringify": "^10.0.2",
+    "showdown": "^2.1.0",
+    "unified": "^10.1.2"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.8",

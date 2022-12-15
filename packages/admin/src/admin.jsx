@@ -1,6 +1,6 @@
 import { useState, useEffect, createRef } from 'react'
 import { motion } from 'framer-motion'
-import { Editor } from './editor'
+import { Editor } from './components/editors'
 
 import './admin.css'
 
@@ -10,9 +10,9 @@ export const AdminPage = ({ appUrl = '/' }) => {
   const iframeRef = createRef()
   const [activeData, setActiveData] = useState()
 
-  // set iframe src on client
   useEffect(() => {
-    iframeRef.current.src = window.location.hash.replace('#', '') || appUrl
+    const path = window.location.hash.replace('#', '')
+    iframeRef.current.src = appUrl + path
   }, [])
 
   useEffect(() => {
@@ -57,7 +57,6 @@ export const AdminPage = ({ appUrl = '/' }) => {
         variants={variants}
         className={className}
       >
-        <span>Edit</span>
         <Editor data={activeData?.data} update={updateData} />
       </motion.nav>
       <main className="flex-1 min-w-0 overflow-auto">
