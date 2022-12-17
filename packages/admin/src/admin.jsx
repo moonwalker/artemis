@@ -4,9 +4,7 @@ import { Editor } from './components/editor'
 
 import './admin.css'
 
-const targetOrigin = '*' // window.location.origin
-
-export const AdminPage = ({ baseUrl }) => {
+export const AdminPage = ({ baseUrl, targetOrigin }) => {
   const iframeSrc = baseUrl || '/'
   const iframeRef = createRef()
   const [activeData, setActiveData] = useState()
@@ -41,7 +39,7 @@ export const AdminPage = ({ baseUrl }) => {
         id: activeData.id,
         data: data
       },
-      targetOrigin
+      targetOrigin || window.location.origin
     )
   }
 
