@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react'
 
-const targetOrigin = '*' // window.location.origin
-
 export function useArtemis(props) {
   const [data, setData] = useState(props.data)
   const id = hashCode(JSON.stringify(props.data))
@@ -11,6 +9,8 @@ export function useArtemis(props) {
   }, [id])
 
   useEffect(() => {
+    const targetOrigin = '*' // window.location.origin
+
     parent.postMessage({ id, type: 'open', ...props }, targetOrigin)
 
     window.addEventListener('message', (event) => {
@@ -19,7 +19,9 @@ export function useArtemis(props) {
       }
     })
 
-    return () => parent.postMessage({ id, type: 'close' }, targetOrigin)
+    return () => {
+      parent.postMessage({ id, type: 'close' }, targetOrigin)
+    }
   }, [id])
 
   return { data }
