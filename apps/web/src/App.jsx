@@ -4,7 +4,7 @@ import { Navigate, Routes, Route } from "react-router-dom";
 import Authenticate from './pages/authenticate'
 import Editorial from './components/editorial'
 import Error from './pages/error'
-import Explorer from './components/explorer'
+// import Explorer from './components/explorer'
 import Login from './pages/login'
 import ReposList from './components/repository'
 import RepoInfo from './components/repository/info'

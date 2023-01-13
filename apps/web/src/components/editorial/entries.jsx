@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useClient, endpoints } from '../../lib/moonbase'
+import { useClient, endpoints, isSchema } from '../../lib/moonbase'
 import { DeleteButton, FileIcon, NewDocumentIcon } from '../common'
 import Error from '../error'
 import Loader from '../loader'
@@ -28,7 +28,7 @@ export default ({ owner, repo, branch, collection }) => {
         if (!name)
             return setAddNew(false)
 
-        client.post(endpoints.collection(owner, repo, branch, collection), { name }).then(data => {
+        client.post(endpoints.collection(owner, repo, branch, collection), { name, contents: '{}' }).then(data => {
             if (data.error) {
                 return setError(data.error)
             }
@@ -96,7 +96,7 @@ export default ({ owner, repo, branch, collection }) => {
                         <div className="w-5/12 truncate"></div>
                         <div className="w-2/12 text-right"></div>
                         <div className="w-1/12 items-center">
-                            <DeleteButton onClick={deleteEntry(e.name)} />
+                            {!isSchema(e.name) && <DeleteButton onClick={deleteEntry(e.name)} />}
                         </div>
                     </Link>
                     ))}

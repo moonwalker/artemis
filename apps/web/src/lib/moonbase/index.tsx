@@ -1,6 +1,7 @@
 import * as React from "react";
 import { getToken, unauthorized } from '../auth'
 export * from './endpoints'
+export * from './utils'
 
 interface ClientType {
     apiUrl: string,
@@ -21,6 +22,9 @@ class Client implements ClientType {
     }
     post = (url: string, data: any): Promise<any> => {
         return call('POST', this.apiUrl + url, data)
+    }
+    put = (url: string, data: any): Promise<any> => {
+        return call('PUT', this.apiUrl + url, data)
     }
     del = (url: string): Promise<any> => {
         return call('DELETE', this.apiUrl + url)
