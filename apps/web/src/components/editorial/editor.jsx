@@ -41,7 +41,7 @@ export default ({ owner, repo, branch, collection, entry }) => {
     }, [branch, entry])
 
     const setValue = (value, id) => {
-        data.content[id] = value
+        data.content.fields[id] = value
         setData(data)
     }
 

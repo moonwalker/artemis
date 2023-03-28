@@ -15,7 +15,7 @@ export default function Fields({ schema, content, setValue }) {
                     </label>
                 </div>
                 <div className="md:w-2/3">
-                    <FieldInput className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={content[f.id]} onChange={setValue} field={f} id={f.id} />
+                    <FieldInput className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={content.fields[f.id]} onChange={setValue} field={f} id={f.id} />
                 </div>
             </div >)
     )
