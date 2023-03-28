@@ -1,6 +1,8 @@
 
 import { useState } from 'react'
 
+const pad = (num) => (num < 10 ? '0' + num : num + '')
+
 const fieldValidators = {
     required: {
         pattern: /.+/,
@@ -60,7 +62,7 @@ const getType = (type) => {
         case 'datetime':
             return 'datetime-local'
         case 'text':
-        default:
+        default: // reference
             return 'text'
     }
 }
@@ -77,8 +79,8 @@ const parseValue = (type, value) => {
             return new Date(value)
         case 'text':
         case 'object':
-        default:
-            return v
+        default: // reference
+            return value
     }
 }
 
@@ -86,8 +88,9 @@ export default function FieldInput({ field, value, onChange, ...rest }) {
     const [invalid, setInvalid] = useState(false)
     let initialValues
 
-    const validate = (target) => {
-        onChange(parseValue(field.type, e.target.value), field.id)
+    const validate = (value) => {
+        // TODO: use validators by field.validations
+        onChange(parseValue(field.type, value), field.id)
     }
 
     if (field.type == 'bool') {
@@ -114,7 +117,8 @@ export default function FieldInput({ field, value, onChange, ...rest }) {
         }
     }
 
-    return (field.type == 'object') ?
-        (<textarea rows="10" id={field.id} {...initialValues} {...rest} />) :
-        (<input type={getType(field.type)} id={field.id} {...initialValues} {...rest} />)
+    return ((field.type == 'object') ?
+            (<textarea rows="10" {...initialValues} {...rest} />) :
+            (<input type={getType(field.type)} {...initialValues} {...rest} />))
 }
+
