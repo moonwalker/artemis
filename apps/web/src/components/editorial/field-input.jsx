@@ -102,7 +102,7 @@ export default function FieldInput({ field, value, onChange, ...rest }) {
         }
     } else if (field.type == 'date' || field.type == 'datetime' && (value || field.defaultValue)) {
         const date = new Date(value || field.defaultValue);
-        const dateString = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
+        let dateString = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`
         if (field.type == 'datetime') {
             dateString += `T${pad(date.getHours())}:${pad(date.getMinutes())}`
         }
