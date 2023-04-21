@@ -117,7 +117,7 @@ export default function FieldInput({ field, value, onChange, ...rest }) {
         }
     }
 
-    return ((field.type == 'object') ?
+    return ((field.type == 'object' || field.type == 'json' || field.type == 'longtext') ?
             (<textarea rows="10" {...initialValues} {...rest} />) :
             (<input type={getType(field.type)} {...initialValues} {...rest} />))
 }
