@@ -20,7 +20,7 @@ export default ({ owner, repo, branch, collection }) => {
             if (data.error) {
                 return setError(data.error)
             }
-            setEntries(data)
+            setEntries(data.filter(e => !isSchema(e.name)))
         }).catch(err => setError(err.message))
     }, [])
 
@@ -96,7 +96,7 @@ export default ({ owner, repo, branch, collection }) => {
                         <div className="w-5/12 truncate"></div>
                         <div className="w-2/12 text-right"></div>
                         <div className="w-1/12 items-center">
-                            {!isSchema(e.name) && <DeleteButton onClick={deleteEntry(e.name)} />}
+                            <DeleteButton onClick={deleteEntry(e.name)} />
                         </div>
                     </Link>
                     ))}
