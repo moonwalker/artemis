@@ -73,7 +73,7 @@ export default ({ owner, repo, branch, collection, entry }) => {
                                     <textarea className="block h-96 py-4 px-3 w-full text-sm text-gray-700 placeholder-gray-500 font-medium outline-none bg-transparent border border-gray-400 hover:border-zinc-400 focus:border-green-500 rounded-lg resize-none" id="schema-editor" type="text" defaultValue={jsonContent()} onChange={setSchema} >
                                     </textarea>
                                     :
-                                    <Fields {...data} setValue={setValue}></Fields>
+                                    <Fields {...data} owner={owner} repo={repo} branch={branch} setValue={setValue}></Fields>
                                 }
                             </div>
                             <div className="flex items-center justify-between">

@@ -1,5 +1,6 @@
 
 import { useState } from 'react'
+import ImageUpload from './image-upload'
 
 const pad = (num) => (num < 10 ? '0' + num : num + '')
 
@@ -79,6 +80,7 @@ const parseValue = (type, value) => {
             return new Date(value)
         case 'text':
         case 'object':
+        case 'json':
         default: // reference
             return value
     }
@@ -91,6 +93,10 @@ export default function FieldInput({ field, value, onChange, ...rest }) {
     const validate = (value) => {
         // TODO: use validators by field.validations
         onChange(parseValue(field.type, value), field.id)
+    }
+
+    const setImage = (img) => {
+        onChange(img, field.id)
     }
 
     if (field.type == 'bool') {
@@ -117,8 +123,11 @@ export default function FieldInput({ field, value, onChange, ...rest }) {
         }
     }
 
-    return ((field.type == 'object' || field.type == 'json' || field.type == 'longtext') ?
-            (<textarea rows="10" {...initialValues} {...rest} />) :
-            (<input type={getType(field.type)} {...initialValues} {...rest} />))
-}
+    if (field.type == 'json' && field.id == 'file' && typeof (value.url) != 'undefined') {
+        return (<ImageUpload image={value} onChange={setImage} {...rest}></ImageUpload>)
+    }
 
+    return ((field.type == 'object' || field.type == 'json' || field.type == 'longtext') ?
+        (<textarea rows="10" {...initialValues} {...rest} />) :
+        (<input type={getType(field.type)} {...initialValues} {...rest} />))
+}

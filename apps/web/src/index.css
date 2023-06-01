@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.image-preview img {
+    max-height: 480px;
+    height: 50%;
+    width: auto;
+}
+
+.file-label {
+    align-items: flex-end;
+    display: flex;
+    cursor: pointer;
+    flex-direction: row-reverse;
+    overflow: hidden;
+    position: relative;
+}
+
+.file-input {
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    outline: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.file-cta {
+    background-color: #f5f5f5;
+    color: #4a4a4a;
+}
+
+.file-cta,
+.file-name {
+    border: 1px solid #dbdbdb;
+    border-radius: 0.375em;
+    box-shadow: none;
+    display: inline-flex;
+    font-size: 1em;
+    height: 2.5em;
+    padding-bottom: calc(0.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(0.5em - 1px);
+    white-space: nowrap;
+    align-items: center;
+    justify-content: flex-start;
+    line-height: 1.5;
+    position: relative;
+    vertical-align: top;
+}
+
+.file-icon {
+    align-items: center;
+    display: flex;
+    height: 1em;
+    justify-content: center;
+    margin-right: 0.5em;
+    width: 1em;
+}

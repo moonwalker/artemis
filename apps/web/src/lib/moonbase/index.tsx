@@ -29,6 +29,9 @@ class Client implements ClientType {
     del = (url: string): Promise<any> => {
         return call('DELETE', this.apiUrl + url)
     }
+    upload = (url: string, file: any, cb?: () => void): Promise<any> => {
+        return upload(this.apiUrl + url, file, cb)
+    }
     constructor(apiUrl: string) {
         this.apiUrl = apiUrl
     }
@@ -64,6 +67,49 @@ const call = async (method: string, url: string, data?: any): Promise<any> => {
     }
 
     return response.text()
+}
+
+const upload = async (url: string, file: any, onProgress?: (p: string) => void): Promise<any> => {
+    if (!file) {
+        return Promise.resolve(null)
+    }
+
+    const start = new Date().getTime();
+    var data = new FormData();
+    data.append("file", file);
+
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        const authtoken = getToken()
+        if (!!authtoken) {
+            xhr.setRequestHeader('Authorization', `Bearer ${authtoken}`)
+        }
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                let resp;
+                try {
+                    resp = JSON.parse(xhr.response);
+                    const err = resp && (resp.error || (xhr.status == 500 && resp.message));
+                    if (err) {
+                        reject(err);
+                    }
+                } catch (e) {
+                    reject(e.message);
+                }
+                resolve(resp);
+            }
+        }
+        xhr.upload.addEventListener("progress", function (e) {
+            if (e.lengthComputable && !!onProgress) {
+                onProgress((e.loaded / e.total).toFixed(2));
+            }
+        }, false);
+        xhr.onerror = () => {
+            reject("request failed");
+        }
+        xhr.send(data);
+    })
 }
 
 export function useClient(): ClientType {

@@ -10,4 +10,6 @@ export const endpoints = {
     entry: (owner, repo, branch, collection, entry) => (`/cms/${owner}/${repo}/${branch}/collections/${collection}/${entry}`),
 
     components: (owner, repo, branch, sandpack) => (`/cms/${owner}/${repo}/${branch}/components?sandpack=${sandpack}`),
+
+    images: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/_images`),
 }

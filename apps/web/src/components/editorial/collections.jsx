@@ -18,7 +18,7 @@ export default ({ owner, repo, branch }) => {
             if (data.error) {
                 return setError(data.error)
             }
-            setCollections(data)
+            setCollections(data.filter(f => (f.name[0] != '.' && f.name[0] != '_')))
         }).catch(err => setError(err.message))
     }, [])
 
