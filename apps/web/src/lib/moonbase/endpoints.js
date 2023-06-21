@@ -11,5 +11,8 @@ export const endpoints = {
 
     components: (owner, repo, branch, sandpack) => (`/cms/${owner}/${repo}/${branch}/components?sandpack=${sandpack}`),
 
-    images: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/_images`),
+    images: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/images`),
+    settings: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/settings`),
+
+    modelCategories: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/settings/modelCategories.json`),
 }

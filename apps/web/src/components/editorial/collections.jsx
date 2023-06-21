@@ -1,16 +1,24 @@
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useEffect, useMemo, useState } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useClient, endpoints } from '../../lib/moonbase'
 import Error from '../error'
 import Loader from '../loader'
 import { DeleteButton, NewCollectionIcon } from '../common'
 import CreateNew from './create-new'
 
+
+function useQuery() {
+    const { search } = useLocation();
+    return useMemo(() => new URLSearchParams(search), [search]);
+}
+
 export default ({ owner, repo, branch }) => {
+    let query = useQuery();
     const client = useClient()
     const navigate = useNavigate()
     const [addNew, setAddNew] = useState(false)
     const [collections, setCollections] = useState(null)
+    const [modelCategories, setModelCategories] = useState()
     const [error, setError] = useState(null)
 
     useEffect(() => {
@@ -20,6 +28,23 @@ export default ({ owner, repo, branch }) => {
             }
             setCollections(data.filter(f => (f.name[0] != '.' && f.name[0] != '_')))
         }).catch(err => setError(err.message))
+    }, [])
+
+
+    useEffect(() => {
+        client.get(endpoints.modelCategories(owner, repo, branch)).then(data => {
+            if (!data.error && !!data.content) {
+                let mcs = {}
+                Object.entries(data.content).forEach(mc => {
+                    const key = mc[0]
+                    mcs[key] = {}
+                    mc[1].models.forEach(m => {
+                        mcs[key][m] = true
+                    })
+                })
+                setModelCategories(mcs)
+            }
+        })
     }, [])
 
     const newCollection = (name) => {
@@ -65,7 +90,10 @@ export default ({ owner, repo, branch }) => {
                     <div className="p-8">
                         {!collections && !error && <Loader color="text-zinc-700" />}
                         {!!collections && <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8">
-                            {collections.map((col, idx) => (
+                            {collections.filter(col => {
+                                const filter = query.get('filter')
+                                return (!filter || !modelCategories || !modelCategories[filter] || !!modelCategories[filter][col.name])
+                            }).map((col, idx) => (
                                 <Link key={`${idx}-${col.name}`} to={`/cms/${owner}/${repo}/${branch}/${col.name}`} className="p-4 border border-stone-200 rounded-md shadow-md flex items-center justify-center hover:shadow-xl hover-border-stone-400 focus:outline-none focus:ring focus:ring-stone-600 active:bg-stone-200 active:shadow-inner transition-all">
                                     <div className="flex items-center space-x-2">
                                         <h3 className="text-lg text-zinc-600">{`${col.name}`}</h3>
