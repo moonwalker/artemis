@@ -116,6 +116,11 @@ export default function FieldInput({ field, value, onChange, ...rest }) {
             defaultValue: dateString,
             onChange: (e) => validate(e.target.value)
         }
+    } else  if (field.type == 'json') {
+         initialValues = {
+            defaultValue: JSON.stringify(value || field.defaultValue || {}),
+            onChange: (e) => validate(e.target.value)
+        }
     } else {
         initialValues = {
             defaultValue: value || field.defaultValue || '',
