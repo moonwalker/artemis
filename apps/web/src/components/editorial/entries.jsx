@@ -11,7 +11,8 @@ function fmtDisplayName(name) {
     return s[0].split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join(' ') + ` (${s[1]})`
 }
 
-export default ({ owner, repo, branch, collection }) => {
+// export default ({ owner, repo, branch, collection }) => {
+const Entries = ({ owner, repo, branch, collection }) => {
     const client = useClient()
     const navigate = useNavigate()
     const [addNew, setAddNew] = useState(false)
@@ -96,7 +97,7 @@ export default ({ owner, repo, branch, collection }) => {
                     {!!entries && entries.map((e, idx) => (<Link key={`${idx}-${e.name}`} to={`/cms/${owner}/${repo}/${branch}/${collection}/${e.name}`} className="flex justify-between px-4 py-2 hover:bg-gray-200">
                         <div className="w-4/12 flex items-center">
                             <FileIcon />
-                            <span className="ml-3">{fmtDisplayName(e.name)}</span>
+                            <span className="ml-3">{e.name}</span>
                         </div>
                         <div className="w-5/12 truncate"></div>
                         <div className="w-2/12 text-right"></div>
@@ -111,3 +112,5 @@ export default ({ owner, repo, branch, collection }) => {
         {addNew && <CreateNew title="entry" onClose={newEntry} owner={owner} repo={repo} branch={branch} collection={collection} />}
     </div>)
 }
+
+export default Entries
