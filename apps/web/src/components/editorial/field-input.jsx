@@ -86,17 +86,17 @@ const parseValue = (type, value) => {
     }
 }
 
-export default function FieldInput({ field, value, onChange, ...rest }) {
+export default function FieldInput({ field, value, onChange, locale, ...rest }) {
     const [invalid, setInvalid] = useState(false)
     let initialValues
 
     const validate = (value) => {
         // TODO: use validators by field.validations
-        onChange(parseValue(field.type, value), field.id)
+        onChange(parseValue(field.type, value), field.id, locale)
     }
 
     const setImage = (img) => {
-        onChange(img, field.id)
+        onChange(img, field.id, locale)
     }
 
     if (field.type == 'bool') {
@@ -104,7 +104,8 @@ export default function FieldInput({ field, value, onChange, ...rest }) {
             value: field.id,
             name: field.id,
             defaultChecked: ((!!value || !!field.defaultValue) && 'checked') || '',
-            onClick: (e) => onChange(e.target.checked, field.id)
+            onClick: (e) => onChange(e.target.checked, field.id, locale),
+            style: { 'width': 'auto' }
         }
     } else if (field.type == 'date' || field.type == 'datetime' && (value || field.defaultValue)) {
         const date = new Date(value || field.defaultValue);

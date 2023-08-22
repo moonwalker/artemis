@@ -1,27 +1,68 @@
 
 import { useState, useEffect } from 'react'
+import { defaultLocale } from '../../lib/moonbase'
 import FieldInput from './field-input'
 
 export default function Fields({ schema, content, setValue, ...rest }) {
-
-    return schema?.fields?.map(f =>
-        f.list ?
-            (<FieldList field={f} list={content[f.id]} onChange={setValue} key={f.id}></FieldList>)
-            :
-            (<div className="md:flex md:items-center mb-6" key={f.id}>
+    return schema?.fields?.map(f => {
+        let localizedValues;
+        if (f.localized) {
+            localizedValues = Object.entries(content.fields[f.id])
+        }
+        return (<div>
+            <div className={"md:flex md:items-center" + (!f.list && !f.localized ? " mb-6" : "")} key={f.id}>
                 <div className="md:w-1/3">
                     <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor={f.id}>
                         {f.label}
                     </label>
                 </div>
                 <div className="md:w-2/3">
-                    <FieldInput className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={content.fields[f.id]} onChange={setValue} field={f} id={f.id} {...rest} />
+                    {!f.list && !f.localized &&
+                        <Field className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={content.fields[f.id][defaultLocale]} onChange={setValue} field={f} id={f.id} locale={defaultLocale} />
+                    }
                 </div>
-            </div >)
+            </div>
+            {f.localized && localizedValues.map(([l, v], i) => {
+                return (<div className={"md:flex md:items-center " + (i == localizedValues.length - 1 ? "mb-6" : "mb-1")} key={`${f.id}_${l}`}>
+                    <div className="md:w-1/3">
+                        <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor={`${f.id}_${l}`}>
+                            {l}
+                        </label>
+                    </div>
+                    <div className="md:w-2/3">
+                        <Field className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={v} onChange={setValue} field={f} id={`${f.id}_${l}`} locale={l} />
+                    </div>
+                </div>
+                )
+            })}
+        </div>)
+    })
+}
+
+
+const Field = ({ field, ...rest }) => {
+    return (field.list ?
+        <FieldList field={field} {...rest} /> :
+        <FieldInput field={field} {...rest} />
     )
 }
 
-const FieldList = ({ field, list, onChange }) => {
+// f.list ?
+//     (<FieldList field={f} list={content[f.id]} onChange={setValue} key={f.id}></FieldList>)
+//     :
+//     (<div className="md:flex md:items-center mb-6" key={f.id}>
+//         <div className="md:w-1/3">
+//             <label className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" htmlFor={f.id}>
+//                 {f.label}
+//             </label>
+//         </div>
+//         <div className="md:w-2/3">
+//             <FieldInput className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={content.fields[f.id]} onChange={setValue} field={f} id={f.id} {...rest} />
+//         </div>
+//     </div >)
+
+
+const FieldList = ({ field, list, setValue }) => {
     let [items, setItems] = useState([])
     const [showAdd, setShowAdd] = useState(false)
 

@@ -40,8 +40,8 @@ export default ({ owner, repo, branch, collection, entry }) => {
             .finally(() => setLoaded(true))
     }, [branch, entry])
 
-    const setValue = (value, id) => {
-        data.content.fields[id] = value
+    const setValue = (value, id, locale) => {
+        data.content.fields[id][locale] = value
         setData(data)
     }
 
@@ -67,7 +67,7 @@ export default ({ owner, repo, branch, collection, entry }) => {
                     {!loaded && !error && <Loader color="text-zinc-700" />}
                     {loaded &&
                         <div className="w-full px-4">
-                            <h3 className="font-medium leading-tight text-3xl mt-0 mb-2 text-grey-600">{entry}</h3>
+                            {/* <h3 className="font-medium leading-tight text-3xl mt-0 mb-2 text-grey-600">{entry}</h3> */}
                             <div className="rounded-md rounded-t-none border-0 text-gray-70 mb-4">
                                 {isSchema(entry) ?
                                     <textarea className="block h-96 py-4 px-3 w-full text-sm text-gray-700 placeholder-gray-500 font-medium outline-none bg-transparent border border-gray-400 hover:border-zinc-400 focus:border-green-500 rounded-lg resize-none" id="schema-editor" type="text" defaultValue={jsonContent()} onChange={setSchema} >

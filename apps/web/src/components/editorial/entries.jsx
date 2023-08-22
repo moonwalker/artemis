@@ -7,8 +7,7 @@ import Loader from '../loader'
 import CreateNew from './create-new'
 
 function fmtDisplayName(name) {
-    const s = name.split('.')[0].split('_')
-    return s[0].split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join(' ') + ` (${s[1]})`
+    return name.split('-').map(s => s.charAt(0).toUpperCase() + s.slice(1).toLowerCase()).join(' ')
 }
 
 export default ({ owner, repo, branch, collection }) => {
