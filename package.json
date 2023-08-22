@@ -10,8 +10,8 @@
     "release": "turbo run build && changeset version && changeset publish"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.25.2",
-    "turbo": "^1.6.3"
+    "@changesets/cli": "^2.26.2",
+    "turbo": "^1.10.12"
   },
   "workspaces": [
     "apps/*",
