@@ -41,11 +41,15 @@ export default ({ owner, repo, branch, collection, entry }) => {
     }, [branch, entry])
 
     const setValue = (value, id, locale) => {
+        if (!data.content.fields[id]) {
+            data.content.fields[id] = {}
+        }
         data.content.fields[id][locale] = value
+        console.log("setData", id, locale, data.content.fields[id][locale])
         setData(data)
     }
 
-    const setSchema = e => {
+    const editSchema = e => {
         try {
             const json = JSON.parse(e.target.value)
             if (!!json) {
@@ -57,7 +61,7 @@ export default ({ owner, repo, branch, collection, entry }) => {
         }
     }
 
-    const jsonContent = () => JSON.stringify(data.content, null, 2)
+    const jsonContent = () => JSON.stringify(data?.content, null, 2)
 
     return (<div className="text-gray-900 text-sm">
         {!!error && <Error error={error} />}
@@ -70,10 +74,12 @@ export default ({ owner, repo, branch, collection, entry }) => {
                             {/* <h3 className="font-medium leading-tight text-3xl mt-0 mb-2 text-grey-600">{entry}</h3> */}
                             <div className="rounded-md rounded-t-none border-0 text-gray-70 mb-4">
                                 {isSchema(entry) ?
-                                    <textarea className="block h-96 py-4 px-3 w-full text-sm text-gray-700 placeholder-gray-500 font-medium outline-none bg-transparent border border-gray-400 hover:border-zinc-400 focus:border-green-500 rounded-lg resize-none" id="schema-editor" type="text" defaultValue={jsonContent()} onChange={setSchema} >
+                                    <textarea className="block h-96 py-4 px-3 w-full text-sm text-gray-700 placeholder-gray-500 font-medium outline-none bg-transparent border border-gray-400 hover:border-zinc-400 focus:border-green-500 rounded-lg resize-none" id="schema-editor" type="text" defaultValue={jsonContent()} onChange={editSchema} >
                                     </textarea>
                                     :
-                                    <Fields {...data} owner={owner} repo={repo} branch={branch} setValue={setValue}></Fields>
+                                    <div>
+                                        {data && data.schema.fields.map(f => (<Fields key={f.id} fields={data.content.fields} field={f} onChange={setValue} owner={owner} repo={repo} branch={branch} ></Fields>))}
+                                    </div>
                                 }
                             </div>
                             <div className="flex items-center justify-between">
