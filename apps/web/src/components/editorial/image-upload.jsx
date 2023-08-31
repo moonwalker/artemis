@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useClient, endpoints } from '../../lib/moonbase'
 import Loader from '../loader'
 
-export default function ImageUpload({ image, onChange, owner, repo, branch }) {
+export default function ImageUpload({ field, image, locale, onChange, owner, repo, branch }) {
 
     const client = useClient()
     const [error, setError] = useState('')
@@ -33,7 +33,7 @@ export default function ImageUpload({ image, onChange, owner, repo, branch }) {
                                 },
                                 fileName: res.name,
                                 url: image.url.replace(image.fileName, res.name)
-                            })
+                            }, field.id, locale)
                             setLoading(false)
                             return true;
                         }

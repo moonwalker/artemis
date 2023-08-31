@@ -63,15 +63,56 @@
 }
 
 .draggable {
-    cursor: move; /* fallback if grab cursor is unsupported */
+    cursor: move;
+    /* fallback if grab cursor is unsupported */
     cursor: grab;
     cursor: -moz-grab;
     cursor: -webkit-grab;
 }
 
- /* (Optional) Apply a "closed-hand" cursor during drag operation. */
+/* (Optional) Apply a "closed-hand" cursor during drag operation. */
 .draggable:active {
     cursor: grabbing;
     cursor: -moz-grabbing;
     cursor: -webkit-grabbing;
 }
+
+input[type=checkbox].tick {
+    display: none;
+}
+
+input[type=checkbox].tick~svg {
+    display: none;
+}
+
+input[type=checkbox].tick+svg {
+    display: inline-block;
+}
+
+input[type=checkbox].tick:checked~svg {
+    display: inline-block;
+}
+
+input[type=checkbox].tick:checked+svg {
+    display: none;
+}
+
+/* input[type=checkbox] {
+    display: none;
+}
+
+input[type=checkbox]::before {
+    display: inline-block;
+}
+
+input[type=checkbox]:checked::before {
+    display: none;
+}
+
+input[type=checkbox]:after {
+    display: none;
+}
+
+input[type=checkbox]:checked:after {
+    display: inline-block;
+} */

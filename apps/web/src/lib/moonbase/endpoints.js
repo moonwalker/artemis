@@ -15,6 +15,8 @@ export const endpoints = {
     settings: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/settings`),
 
     modelCategories: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/settings/modelCategories.json`),
+
+    reference: (owner, repo, branch, collection, id, locale) => (`/cms/${owner}/${repo}/${branch}/reference/${collection}/${id}/${locale}`),
 }
 
 export const defaultLocale = "en"

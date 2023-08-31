@@ -7,11 +7,7 @@ export default function Loader({ color }) {
 
     function closeModal() {
         setIsOpen(false)
-        if (onClose) onClose()
-    }
-
-    function openModal() {
-        setIsOpen(true)
+        // if (onClose) onClose()
     }
 
     return (
