@@ -73,7 +73,7 @@ const Field = ({ field, value, ...rest }) => {
 }
 
 
-const FieldList = ({ field, value, onChange, locale }) => {
+const FieldList = ({ field, value, onChange, locale, ...rest }) => {
     const [list, setList] = useState(value)
 
     const onListChange = (idx) => (value) => {
@@ -111,8 +111,8 @@ const FieldList = ({ field, value, onChange, locale }) => {
                     </svg>
                 </div>
                 {!field.reference ?
-                    <FieldInput className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={e} onChange={onListChange(i)} field={field} id={`${field.id}_${locale}-${i}`} /> :
-                    <ReferenceField className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={e} onChange={onListChange(i)} field={field} id={`${field.id}_${locale}-${i}`} disabled={i < list.length - 1 || !!e} />}
+                    <FieldInput {...rest} className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={e} onChange={onListChange(i)} field={field} id={`${field.id}_${locale}-${i}`} locale={locale}/> :
+                    <ReferenceField  {...rest} className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={e} onChange={onListChange(i)} field={field} id={`${field.id}_${locale}-${i}`} disabled={i < list.length - 1 || !!e} locale={locale}/>}
             </div>
             <div className="flex-auto ml-2">
                 <button className="border-2 border-gray-200 hover:bg-blue-200 text-gray font-bold py-2 px-3 rounded" onClick={onListDelete} id={`${field.id}_${locale}-${i}-delete`} data-idx={i}>

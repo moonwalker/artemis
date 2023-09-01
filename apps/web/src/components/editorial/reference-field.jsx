@@ -6,27 +6,31 @@ import { useClient, endpoints, isSchema } from '../../lib/moonbase'
 export default function ReferenceField({ field, value, onSelect, owner, repo, branch, locale, disabled, onChange, ...rest }) {
     const client = useClient()
     const [reference, setReference] = useState(null)
-    const [loaded, setLoaded] = useState(false)
+    const [loaded, setLoaded] = useState(!value)
     const [showSelector, setShowSelector] = useState(false)
 
     useEffect(() => {
-        client.get(endpoints.reference(owner, repo, branch, field.type, value, locale)).then(data => {
-            if (data.error) {
-                return setReference(data.error)
-            }
-            setReference(data.schema.displayField && data.content.fields[data.schema.displayField] || value)
-        }).catch(err => setReference(err.message))
-            .finally(() => setLoaded(true))
-    }, [value])
+        if (!!value) {
+            client.get(endpoints.reference(owner, repo, branch, field.type, value, locale)).then(data => {
+                if (data.error) {
+                    return setReference(data.error)
+                }
+                setReference(data.schema.displayField && data.content.fields[data.schema.displayField] || value)
+            }).catch(err => setReference(err.message))
+                .finally(() => setLoaded(true))
+        }
+    }, [ owner, repo, branch, field, value])
 
     const selectReference = (name) => {
-        client.get(endpoints.entry(owner, repo, branch, field.type, name)).then(data => {
-            if (data.error) {
-                return setReference(data.error)
-            }
-            onChange(data.content.id || value, field.id, locale)
-            setShowSelector(false)
-        }).catch(err => setReference(err.message))
+        if (!!name) {
+            client.get(endpoints.entry(owner, repo, branch, field.type, name)).then(data => {
+                if (data.error) {
+                    return setReference(data.error)
+                }
+                onChange(data.content.id || value, field.id, locale)
+                setShowSelector(false)
+            }).catch(err => setReference(err.message))
+        }
     }
 
     return (<div className="md:flex md:items-center w-full">
@@ -66,7 +70,7 @@ const ReferenceSelector = ({ collection, shown, onSelect, owner, repo, branch })
             }
             setEntries(data.filter(e => !isSchema(e.name)))
         }).catch(err => setError(err.message))
-    }, [collection])
+    }, [owner, repo, branch, collection])
 
     const cancelButtonRef = useRef(null)
 
