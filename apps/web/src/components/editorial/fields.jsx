@@ -6,9 +6,10 @@ import ImageUpload from './image-upload'
 import ReferenceField from './reference-field'
 
 export default function Fields({ fields, field, onChange, ...rest }) {
+    let fieldValues = fields[field.id] || {}
     let localizedValues;
     if (field.localized) {
-        localizedValues = Object.entries(fields[field.id])
+        localizedValues = Object.entries(fieldValues)
     }
     return (<div>
         <div className={"md:flex md:items-center" + (!field.list && !field.localized ? " mb-6" : "")}>
@@ -19,7 +20,7 @@ export default function Fields({ fields, field, onChange, ...rest }) {
             </div>
             <div className="md:w-2/3">
                 {!field.list && !field.localized &&
-                    <Field className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={fields[field.id] && fields[field.id][defaultLocale]} onChange={onChange} field={field} locale={defaultLocale} {...rest} />
+                    <Field className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={fieldValues[defaultLocale]} onChange={onChange} field={field} locale={defaultLocale} {...rest} />
                 }
                 {/* {field.list && !field.localized &&
                     <div className="md:w-1/6">
@@ -48,7 +49,7 @@ export default function Fields({ fields, field, onChange, ...rest }) {
                 </label>
             </div>
             <div className="md:w-2/3">
-                <Field className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={fields[field.id] && fields[field.id][defaultLocale]} onChange={onChange} field={field} locale={defaultLocale} {...rest} />
+                <Field className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={fieldValues[defaultLocale]} onChange={onChange} field={field} locale={defaultLocale} {...rest} />
             </div>
         </div>
         )}
@@ -111,8 +112,8 @@ const FieldList = ({ field, value, onChange, locale, ...rest }) => {
                     </svg>
                 </div>
                 {!field.reference ?
-                    <FieldInput {...rest} className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={e} onChange={onListChange(i)} field={field} id={`${field.id}_${locale}-${i}`} locale={locale}/> :
-                    <ReferenceField  {...rest} className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={e} onChange={onListChange(i)} field={field} id={`${field.id}_${locale}-${i}`} disabled={i < list.length - 1 || !!e} locale={locale}/>}
+                    <FieldInput {...rest} className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={e} onChange={onListChange(i)} field={field} id={`${field.id}_${locale}-${i}`} locale={locale} /> :
+                    <ReferenceField  {...rest} className="border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-zinc-400" value={e} onChange={onListChange(i)} field={field} id={`${field.id}_${locale}-${i}`} disabled={i < list.length - 1 || !!e} locale={locale} />}
             </div>
             <div className="flex-auto ml-2">
                 <button className="border-2 border-gray-200 hover:bg-blue-200 text-gray font-bold py-2 px-3 rounded" onClick={onListDelete} id={`${field.id}_${locale}-${i}-delete`} data-idx={i}>
