@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { useAuth } from '../../lib/auth'
 import { useClient, endpoints, isSchema } from '../../lib/moonbase'
 import { DeleteButton, FileIcon, NewDocumentIcon } from '../common'
 import Error from '../error'
@@ -13,6 +14,7 @@ function fmtDisplayName(name) {
 export default ({ owner, repo, branch, collection }) => {
     const client = useClient()
     const navigate = useNavigate()
+    const { user } = useAuth()
     const [addNew, setAddNew] = useState(false)
     const [entries, setEntries] = useState(null)
     const [error, setError] = useState(null)
@@ -32,7 +34,7 @@ export default ({ owner, repo, branch, collection }) => {
         if (!name)
             return setAddNew(false)
 
-        client.post(endpoints.collection(owner, repo, branch, collection), { name, contents: '{}' }).then(data => {
+        client.post(endpoints.collection(owner, repo, branch, collection), { login: user.login, name, contents: '{}' }).then(data => {
             if (data.error) {
                 return setError(data.error)
             }
