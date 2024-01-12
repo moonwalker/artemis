@@ -14,7 +14,7 @@ export const endpoints = {
     images: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/images`),
     settings: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/settings`),
 
-    modelCategories: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/settings/modelCategories.json`),
+    modelCategories: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/settings/modelCategories`),
 
     reference: (owner, repo, branch, collection, id, locale) => (`/cms/${owner}/${repo}/${branch}/reference/${collection}/${id}/${locale}`),
 }
