@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from "react-router-dom";
 import { useAuth } from '../../lib/auth'
-import { useClient, endpoints, isSchema } from '../../lib/moonbase'
+import { useClient, defaultLocale, endpoints, isSchema } from '../../lib/moonbase'
 import { CloseIcon, SaveIcon } from '../common'
 import Error from '../error'
 import Loader from '../loader'
@@ -16,14 +16,21 @@ export default ({ owner, repo, branch, collection, entry }) => {
     const navigate = useNavigate()
 
     const backUrl = `/cms/${owner}/${repo}/${branch}/${collection}`
-    const apiUrl = endpoints.entry(owner, repo, branch, collection, entry)
+    const isNew = (entry == "_new")
 
     const cancel = () => {
         navigate(backUrl)
     }
 
     const save = (schema) => {
-        client.put(apiUrl + (schema ? '?save_schema=true' : ''), { login: user.login, name: entry, contents: jsonContent() }).then(res => {
+        let name = entry
+        if (isNew) {
+            name = data.content.fields[data.schema.displayField][defaultLocale]
+        }
+        if (!name) {
+            return setError("Display field for entry is mandatory")
+        }
+        client.put(endpoints.entry(owner, repo, branch, collection, name) + (schema ? '?save_schema=true' : ''), { login: user.login, name: name, contents: jsonContent() }).then(res => {
             if (res.error)
                 return setError(res.error)
             navigate(backUrl)
@@ -31,7 +38,7 @@ export default ({ owner, repo, branch, collection, entry }) => {
     }
 
     useEffect(() => {
-        client.get(apiUrl).then(data => {
+        client.get(endpoints.entry(owner, repo, branch, collection, entry)).then(data => {
             if (data.error) {
                 return setError(data.error)
             }

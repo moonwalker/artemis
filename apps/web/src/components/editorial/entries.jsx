@@ -13,9 +13,6 @@ function fmtDisplayName(name) {
 
 export default ({ owner, repo, branch, collection }) => {
     const client = useClient()
-    const navigate = useNavigate()
-    const { user } = useAuth()
-    const [addNew, setAddNew] = useState(false)
     const [entries, setEntries] = useState(null)
     const [error, setError] = useState(null)
 
@@ -29,19 +26,6 @@ export default ({ owner, repo, branch, collection }) => {
             setEntries(data.filter(e => !isSchema(e.name)))
         }).catch(err => setError(err.message))
     }, [])
-
-    const newEntry = (name) => {
-        if (!name)
-            return setAddNew(false)
-
-        client.post(endpoints.collection(owner, repo, branch, collection), { login: user.login, name, contents: '{}' }).then(data => {
-            if (data.error) {
-                return setError(data.error)
-            }
-            navigate(`/cms/${owner}/${repo}/${branch}/${collection}/${name}`, { state: { isNew: true } })
-        }).catch(err => setError(err.message))
-            .finally(() => setAddNew(false))
-    }
 
     const deleteEntry = (name) => (e) => {
         e.preventDefault()
@@ -73,10 +57,12 @@ export default ({ owner, repo, branch, collection }) => {
                         {/* <!-- branches selector dropdown --> */}
                     </div>
                     <div className="flex items-center space-x-2">
-                        <button className="border border-gray-400 rounded-md px-4 py-1 hover:bg-gray-200 flex items-center space-x-1" onClick={() => setAddNew(true)}>
+                        {/* </div></div><button className="border border-gray-400 rounded-md px-4 py-1 hover:bg-gray-200 flex items-center space-x-1" onClick={() => setAddNew(true)}> */}
+                        <Link to={`/cms/${owner}/${repo}/${branch}/${collection}/_new`} className="border border-gray-400 rounded-md px-4 py-1 hover:bg-gray-200 flex items-center space-x-1">
                             <NewDocumentIcon />
                             <div className="font-semibold">New entry</div>
-                        </button>
+                            {/* </button> */}
+                        </Link>
                     </div>
                 </div> {/* <!-- end of branch-navigation --> */}
                 <div className="commits-container bg-blue-100 rounded-md rounded-b-none border-blue-200 border-b-0 flex items-center justify-between px-4 py-4 mt-5">
@@ -109,6 +95,5 @@ export default ({ owner, repo, branch, collection }) => {
                 </div>{/* <!-- end of file-explorer --> */}
             </div>
         </div>
-        {addNew && <CreateNew title="entry" onClose={newEntry} owner={owner} repo={repo} branch={branch} collection={collection} />}
     </div>)
 }
