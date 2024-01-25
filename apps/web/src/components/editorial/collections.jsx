@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { useAuth } from '../../lib/auth'
 import { useClient, endpoints } from '../../lib/moonbase'
 import Error from '../error'
 import Loader from '../loader'
@@ -15,6 +16,7 @@ function useQuery() {
 export default ({ owner, repo, branch }) => {
     let query = useQuery();
     const client = useClient()
+    const { user } = useAuth()
     const navigate = useNavigate()
     const [addNew, setAddNew] = useState(false)
     const [collections, setCollections] = useState(null)
@@ -51,7 +53,7 @@ export default ({ owner, repo, branch }) => {
         if (!name)
             return setAddNew(false)
 
-        client.post(endpoints.collections(owner, repo, branch), { name }).then(data => {
+        client.post(endpoints.collections(owner, repo, branch), { login: user.login, name }).then(data => {
             if (data.error) {
                 return setError(data.error)
             }
