@@ -5,7 +5,7 @@ import { SaveIcon } from '../common'
 export default function Create({ owner, repo, branch, collection, title, onClose }) {
     let [isOpen, setIsOpen] = useState(true)
     let [name, setName] = useState('')
-    let [ext, setExt] = useState('.json')
+    let [ext, setExt] = useState(!!collection ? '.json' : '')
     let [hasError, setHasError] = useState(false)
 
     const handleSubmit = (e) => {
