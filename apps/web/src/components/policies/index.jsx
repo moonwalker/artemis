@@ -26,7 +26,7 @@ export default () => {
     const savePolicy = (p) => (e) => {
         e.preventDefault()
         e.stopPropagation()
-        client.post(endpoints.policies()).then(data => {
+        client.post(endpoints.policy(p.id || '_new')).then(data => {
             if (data.error) {
                 return setError(data.error)
             }
@@ -36,7 +36,7 @@ export default () => {
     const deletePolicy = (name) => (e) => {
         e.preventDefault()
         e.stopPropagation()
-        client.del(endpoints.policies()).then(data => {
+        client.del(endpoints.policy(p.id)).then(data => {
             if (data.error) {
                 return setError(data.error)
             }

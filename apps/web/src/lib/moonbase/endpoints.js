@@ -18,7 +18,8 @@ export const endpoints = {
 
     reference: (owner, repo, branch, collection, id, locale) => (`/cms/${owner}/${repo}/${branch}/reference/${collection}/${id}/${locale}`),
 
-    policies: () => (`/auth/policies`),
+    policies: () => (`/system/policies`),
+    policy: (id) => (`/system/policies/${id}`),
 }
 
 export const defaultLocale = "en"
