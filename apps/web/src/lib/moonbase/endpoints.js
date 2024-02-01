@@ -17,6 +17,8 @@ export const endpoints = {
     modelCategories: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/settings/modelCategories`),
 
     reference: (owner, repo, branch, collection, id, locale) => (`/cms/${owner}/${repo}/${branch}/reference/${collection}/${id}/${locale}`),
+
+    policies: () => (`/auth/policies`),
 }
 
 export const defaultLocale = "en"

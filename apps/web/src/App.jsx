@@ -11,6 +11,7 @@ import RepoInfo from './components/repository/info'
 import { AuthProvider, RequireAuth } from './lib/auth'
 import { ClientProvider } from './lib/moonbase'
 import Layout from './components/layout'
+import Policies from './components/policies'
 
 export default function App() {
   return (
@@ -34,6 +35,7 @@ export default function App() {
                     <Route path="" element={<Editorial />} />
                   </Route>
                 </Route>
+                <Route path="policies" element={<Policies />} />
                 {/* <Route path="/:owner/:repo/:element/:branch/*" element={<Explorer />} /> */}
               </Route>
               <Route path="*" element={<Navigate to="/error/404" />} />
