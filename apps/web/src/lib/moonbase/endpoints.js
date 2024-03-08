@@ -11,10 +11,11 @@ export const endpoints = {
 
     components: (owner, repo, branch, sandpack) => (`/cms/${owner}/${repo}/${branch}/components?sandpack=${sandpack}`),
 
-    images: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/_images`),
-    settings: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/_settings`),
+    images: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/images`),
+    settings: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/settings`),
 
-    modelCategories: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/_settings/modelCategories`),
+    collectionGroups: (owner, repo, branch) => (`/cms/${owner}/${repo}/${branch}/collectiongroups`),
+    collectionGroup: (owner, repo, branch, group) => (`/cms/${owner}/${repo}/${branch}/collectiongroups/${group}`),
 
     reference: (owner, repo, branch, collection, id, locale) => (`/cms/${owner}/${repo}/${branch}/reference/${collection}/${id}/${locale}`),
 
